@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action https://formspree.io">
+  <title>Secure Roots Cybersecurity</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header>
+    <nav class="navbar">
+      <a href="/index.html" class="logo"><img src="img/logo.png" alt="Secure Roots Logo"></a>
+      <ul class="nav-links">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/services.html">Services</a></li>
+        <li><a href="/blog/index.html">Blog</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Secure Roots</h1>
+      <p>Fortifying Your Digital Foundations</p>
+      <a href="/services.html" class="btn">Our Services</a>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <h2>Our Services</h2>
+    <div class="service-grid">
+      <div class="service-item">
+        <h3>Penetration Testing</h3>
+        <p>Identify vulnerabilities before attackers do.</p>
+      </div>
+      <div class="service-item">
+        <h3>Red Team Operations</h3>
+        <p>Simulate advanced threats against your environment.</p>
+      </div>
+      <div class="service-item">
+        <h3>Security Assessments</h3>
+        <p>Comprehensive audits of policies, processes, and configurations.</p>
+      </div>
+      <div class="service-item">
+        <h3>Incident Response</h3>
+        <p>Rapid containment and remediation guidance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section Preview -->
+  <section id="blog-preview" class="blog-preview">
+    <h2>Latest Posts</h2>
+    <div class="post-grid">
+      <!-- Example post teaser -->
+      <article class="post-item">
+        <a href="/blog/example-post.html">
+          <h3>Example Post Title</h3>
+          <p class="post-date">July 8, 2025</p>
+          <p class="post-summary">A brief summary of what this post is about. Click to read more.</p>
+        </a>
+      </article>
+      <!-- Add more teasers as new posts are published -->
+    </div>
+    <a href="/blog/index.html" class="btn">View All Posts</a>
+  </section>
+
+  <!-- Contact Form -->
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <form action="https://formspree.io/YOUREMAIL" method="POST">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer / Social Links -->
+  <footer>
+    <div class="social">
+      <a href="https://linkedin.com/in/YourProfile" target="_blank">LinkedIn</a>
+      <a href="https://youtube.com/YourChannel" target="_blank">YouTube</a>
+      <a href="https://twitter.com/YourHandle" target="_blank">Twitter</a>
+    </div>
+    <p>&copy; 2025 Secure Roots. All rights reserved.</p>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
