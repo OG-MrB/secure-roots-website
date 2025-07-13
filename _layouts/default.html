@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/style.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="{{ site.baseurl }}/" class="logo">
+        <img src="{{ site.baseurl }}/img/secureroots_logo.png" alt="Secure Roots Logo">
+      </a>
+      <ul class="nav-links">
+        <li><a href="{{ site.baseurl }}/">Home</a></li>
+        <li><a href="{{ site.baseurl }}/blog/">Blog</a></li>
+        <li><a href="{{ site.baseurl }}/#services">Services</a></li>
+        <li><a href="{{ site.baseurl }}/#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {{ content }}
+  </main>
+
+  <footer>
+    <div class="social">
+      <a href="https://linkedin.com/in/YourProfile">LinkedIn</a>
+      <a href="https://youtube.com/YourChannel">YouTube</a>
+      <a href="https://twitter.com/YourHandle">Twitter</a>
+    </div>
+    <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
+  </footer>
+
+  <script src="{{ site.baseurl }}/js/main.js"></script>
+</body>
+</html>

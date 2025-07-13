@@ -1,0 +1,6 @@
+title: Secure Roots
+description: Cybersecurity insights from Secure Roots
+baseurl: ""            # leave empty for root
+url: "https://secureroots.io"
+paginate: 5
+paginate_path: "/blog/page:num/"
