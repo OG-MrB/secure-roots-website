@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self';
+                 style-src 'self' 'unsafe-inline';
+                 img-src 'self' data:; connect-src 'self';
+                 form-action https://formspree.io">
   <title>{{ page.title }} | {{ site.title }}</title>
-  <meta name="description" content="{{ site.description }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ site.baseurl }}/css/style.css">
 </head>
 <body>
+  <!-- Header / Navigation -->
   <header>
     <nav class="navbar">
       <a href="{{ site.baseurl }}/" class="logo">
@@ -15,8 +22,8 @@
       </a>
       <ul class="nav-links">
         <li><a href="{{ site.baseurl }}/">Home</a></li>
-        <li><a href="{{ site.baseurl }}/blog/">Blog</a></li>
         <li><a href="{{ site.baseurl }}/#services">Services</a></li>
+        <li><a href="{{ site.baseurl }}/blog/">Blog</a></li>
         <li><a href="{{ site.baseurl }}/#contact">Contact</a></li>
       </ul>
     </nav>
@@ -26,13 +33,14 @@
     {{ content }}
   </main>
 
+  <!-- Footer / Social Links -->
   <footer>
     <div class="social">
-      <a href="https://linkedin.com/in/YourProfile">LinkedIn</a>
-      <a href="https://youtube.com/YourChannel">YouTube</a>
-      <a href="https://twitter.com/YourHandle">Twitter</a>
+      <a href="https://linkedin.com/in/YourProfile" target="_blank">LinkedIn</a>
+      <a href="https://youtube.com/YourChannel" target="_blank">YouTube</a>
+      <a href="https://twitter.com/YourHandle" target="_blank">Twitter</a>
     </div>
-    <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
+    <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
   </footer>
 
   <script src="{{ site.baseurl }}/js/main.js"></script>
