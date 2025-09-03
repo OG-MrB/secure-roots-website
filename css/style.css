@@ -135,3 +135,20 @@ footer .social a {
   color: var(--gold);
   text-decoration: none;
 }
+/* Responsive nav logo (SVG or PNG) */
+.navbar { display: flex; align-items: center; justify-content: space-between; }
+.navbar .logo img {
+  display: block;
+  max-height: 60px;    /* desktop cap */
+  width: auto;
+  height: auto;
+  vertical-align: middle;
+}
+
+/* Smaller screens */
+@media (max-width: 768px) {
+  .navbar .logo img { max-height: 44px; }
+}
+@media (max-width: 420px) {
+  .navbar .logo img { max-height: 36px; }
+}
