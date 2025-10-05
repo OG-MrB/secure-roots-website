@@ -4,7 +4,9 @@ title:  "Sextortion: How to Stay Safe and What to Do If It Happens"
 date:   2025-09-03 10:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
 ---
+Sextortion is one of the most damaging online crimes because it attacks both your privacy and your sense of dignity. Over the past year, I’ve personally assisted individuals who were targeted in sextortion schemes. Sitting with them through the panic, shame, and uncertainty showed me how devastating this can be — but also how resilient people are when given the right tools and support.  
 
+This post is for anyone who wants to understand sextortion: what it looks like, how to prevent it, and how to respond if it ever happens to you or someone you care about. 
 # Sextortion: How to Stay Safe and What to Do If It Happens  
 
 Sextortion is one of the most damaging online crimes because it attacks both your privacy and your sense of dignity. Over the past year, I’ve personally assisted individuals who were targeted in sextortion schemes. Sitting with them through the panic, shame, and uncertainty showed me how devastating this can be — but also how resilient people are when given the right tools and support.  
