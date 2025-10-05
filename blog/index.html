@@ -7,16 +7,31 @@ permalink: /blog/
 <section class="blog-list">
   <h1>Blog</h1>
 
-  {% if site.posts == empty %}
-    <p>No posts yet — check back later.</p>
+  {% if paginator.posts == empty %}
+  <p>No posts yet — check back later.</p>
   {% else %}
-    <ul>
-      {% for post in site.posts %}
-        <li>
-          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          <span class="post-date">— {{ post.date | date: "%B %-d, %Y" }}</span>
-        </li>
-      {% endfor %}
-    </ul>
+  <div class="post-grid">
+    {% for post in paginator.posts %}
+    <article class="post-item">
+      <a href="{{ post.url | relative_url }}">
+        <h3>{{ post.title }}</h3>
+        <p class="post-date">{{ post.date | date: "%B %-d, %Y" }}</p>
+        <div class="post-summary">{{ post.excerpt }}</div>
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+
+  <nav class="pagination">
+    {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">← Newer Posts</a>
+    {% endif %}
+
+    <span class="page-number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}" class="next">Older Posts →</a>
+    {% endif %}
+  </nav>
   {% endif %}
 </section>

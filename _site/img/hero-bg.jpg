@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="hero-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7851A9" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#5a3a82" stop-opacity="1"/>
+    </linearGradient>
+    <pattern id="pattern-hex" width="56" height="100" patternUnits="userSpaceOnUse" patternTransform="scale(0.5) rotate(0)">
+      <rect width="56" height="100" fill="url(#hero-grad)"/>
+      <path d="M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100" fill="none" stroke="#CFB53B" stroke-opacity="0.15" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="600" fill="url(#pattern-hex)"/>
+</svg>
