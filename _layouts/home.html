@@ -17,11 +17,11 @@ layout: default
 
 <!-- Blog Preview -->
 <section id="blog-preview" class="blog-preview">
-  <h2>Latest Posts</h2>
+  <h2 style="color: #cfb53b;">Latest Posts</h2>
   <div class="post-grid">
-    {% for post in paginator.posts %}
+    {% for post in site.posts limit:3 %}
     <article class="post-item">
-      <a href="{{ post.url }}">
+      <a href="{{ post.url | relative_url }}">
         <h3>{{ post.title }}</h3>
         <p class="post-date">{{ post.date | date: '%B %-d, %Y' }}</p>
         <p class="post-summary">{{ post.excerpt }}</p>
@@ -29,14 +29,6 @@ layout: default
     </article>
     {% endfor %}
   </div>
-  <nav class="pagination">
-    {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path }}">← Newer Posts</a>
-    {% endif %}
-    {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path }}">Older Posts →</a>
-    {% endif %}
-  </nav>
   <a href="{{ site.baseurl }}/blog/" class="btn">View All Posts</a>
 </section>
 

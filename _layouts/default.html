@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline';
                  style-src 'self' 'unsafe-inline';
                  img-src 'self' data:; connect-src 'self';
                  form-action https://formsubmit.co">
@@ -19,8 +19,13 @@
   <header>
     <nav class="navbar">
       <a href="{{ site.baseurl }}/" class="logo">
-        <img src="{{ site.baseurl }}/img/secureroots_logo_simple.svg" alt="Secure Roots Logo" />
+        <img src="{{ site.baseurl }}/img/secureroots_logo.png" alt="Secure Roots Logo" />
       </a>
+      <div class="mobile-nav-toggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <ul class="nav-links">
         <li><a href="{{ site.baseurl }}/">Home</a></li>
         <li><a href="{{ site.baseurl }}/services/">Services</a></li>
