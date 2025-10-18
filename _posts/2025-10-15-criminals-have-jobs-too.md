@@ -6,7 +6,7 @@ categories: [Cybercrime & Threat Awareness]
 image: /img/cybercriminals_have_jobs_too.png
 description: "Cybercrime isn’t chaos — it’s commerce. Discover why attackers have professionalized their trade, why every organization is a target, and how Secure Roots helps companies build cultures of security strong enough to withstand industrialized threat actors."
 ---
-
+Cybercrime isn’t chaos — it’s commerce. Discover why attackers have professionalized their trade, why every organization is a target, and how Secure Roots helps companies build cultures of security strong enough to withstand industrialized threat actors.
 # (Cyber) Criminals Have Jobs Too
 
 Every day, somewhere in the world, someone’s credentials are sold before their morning coffee brews.  
