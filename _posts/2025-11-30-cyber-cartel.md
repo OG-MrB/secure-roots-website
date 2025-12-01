@@ -6,9 +6,7 @@ categories: [Cybercrime & Threat Awareness]
 image: /img/cybercriminals_have_jobs_too.png
 description: "Cybercrime isn’t chaos — it’s commerce. Discover why attackers have professionalized their trade, why every organization is a target, and how Secure Roots helps companies build cultures of security strong enough to withstand industrialized threat actors."
 ---
-When Cybercrime Becomes Corporate: Inside the Ransomware Cartel of Qilin, LockBit & DragonForce
-
-Subtitle: How a new alliance in the ransomware economy is forcing defenders to evolve from reaction to rehearsal.
+How a new alliance in the ransomware economy is forcing defenders to evolve from reaction to rehearsal.
 
 ⸻
 
