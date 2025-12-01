@@ -8,7 +8,7 @@ description: "Cybercrime isn’t chaos — it’s commerce. Discover why attacke
 ---
 How a new alliance in the ransomware economy is forcing defenders to evolve from reaction to rehearsal.
 
-⸻
+---
 
 Introduction
 
@@ -16,7 +16,7 @@ In the cyber-underground, alliances are often loose, opportunistic, and temporar
 
 This shift matters because it changes how defenders must think about ransomware: from isolated attacks to coordinated business ecosystems.
 
-⸻
+---
 
 Who’s Who: The Players
 
@@ -29,7 +29,7 @@ LockBit is the veteran—responsible for thousands of global incidents and now r
 DragonForce
 DragonForce is newer but rising fast. Analysts note it has adopted a cartel-style model, offering white-label ransomware, absorbing rivals, and sharing infrastructure with partners. In short, it’s not a single crew—it’s an ecosystem builder.
 
-⸻
+---
 
 The Cartel Concept
 
@@ -38,7 +38,7 @@ In traditional crime terms, this is a cartel: a syndicate designed to regulate c
 
 If this proves true, it signals a maturity in the ransomware economy: organized markets, not chaos.
 
-⸻
+---
 
 Why It Matters
 
@@ -47,7 +47,7 @@ It also means your detection coverage against one actor may suddenly apply—or 
 
 But here’s the twist: this cartelization also gives defenders a chance to train smarter. If the adversaries are coordinating, defenders can coordinate their emulation.
 
-⸻
+---
 
 Emulate Before They Arrive: Testing Your Defenses Against a Cartel’s Style of Attack
 
@@ -95,7 +95,7 @@ Every emulation run should end with:
 	•	Technical appendix: detection rule IDs, log sources, gaps, and proposed Exabeam/EDR improvements.
 	•	Runbook updates: communication flows, backup restore validation, legal response templates.
 
-⸻
+---
 
 Beyond Reaction: Building Institutional Muscle
 
@@ -104,7 +104,7 @@ Running these cartel-based emulations does more than sharpen the SOC. It forges 
 The exercise converts fear into data.
 And data is how you win.
 
-⸻
+---
 
 Conclusion
 
