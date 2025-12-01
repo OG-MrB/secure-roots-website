@@ -1,11 +1,12 @@
 ---
 layout: post
-title:  "When Cybercrime Becomes Corporate: Inside the Ransomware Cartel of Qilin, LockBit & DragonForce"
-date:   2025-11-30 16:51:00 -0700
+title: "When Cybercrime Becomes Corporate: Inside the Ransomware Cartel of Qilin, LockBit & DragonForce"
+date: 2025-11-30 16:51:00 -0700
 categories: [Cybercrime & Threat Awareness]
 image: /img/cybercriminals_have_jobs_too.png
 description: "Cybercrime isn’t chaos — it’s commerce. Discover why attackers have professionalized their trade, why every organization is a target, and how Secure Roots helps companies build cultures of security strong enough to withstand industrialized threat actors."
 ---
+
 How a new alliance in the ransomware economy is forcing defenders to evolve from reaction to rehearsal.
 
 ---
@@ -57,9 +58,10 @@ Emulation means **rehearsing their tactics before they do**, safely and within s
 
 **Step 1: Build the Adversary Profile**
 Start by translating each group’s known behaviors into a MITRE ATT&CK map:
-    - Qilin favors credential theft (T1078), scheduled tasks (T1053), and Safe Mode evasion (T1562.009).
-    - LockBit affiliates rely on phishing, RDP exploitation (T1133), and automated encryption scripts (T1486).
-    - DragonForce affiliates experiment with white-label malware, data-theft APIs, and public shaming leak sites (T1654).
+
+- Qilin favors credential theft (T1078), scheduled tasks (T1053), and Safe Mode evasion (T1562.009).
+- LockBit affiliates rely on phishing, RDP exploitation (T1133), and automated encryption scripts (T1486).
+- DragonForce affiliates experiment with white-label malware, data-theft APIs, and public shaming leak sites (T1654).
 
 From this, you can identify what telemetry your defenses should detect.
 
@@ -71,29 +73,29 @@ Involve legal, compliance, and your SOC leads.
 **Step 3: Run It as a Purple Team Sprint**
 Your Red Team executes realistic behaviors; your Blue Team monitors and tunes detections in real time.
 Run it as a one-week cycle:
-    - **Day 1:** Credential abuse & lateral movement simulation.
-    - **Day 2:** Persistence and privilege escalation checks.
-    - **Day 3:** Mock data staging and exfiltration test.
-    - **Day 4:** Simulated encryption and recovery validation.
-    - **Day 5:** After-action review and detection tuning.
+- **Day 1:** Credential abuse & lateral movement simulation.
+- **Day 2:** Persistence and privilege escalation checks.
+- **Day 3:** Mock data staging and exfiltration test.
+- **Day 4:** Simulated encryption and recovery validation.
+- **Day 5:** After-action review and detection tuning.
 
 This schedule fits perfectly with your existing 8 AM–4 PM Purple Team exercise framework.
 
 **Step 4: Measure What Matters**
 Don’t just grade by “we saw the alert.”
 Track:
-    - **MTTD** – Mean Time to Detect.
-    - **MTTC/MTTR** – Mean Time to Contain/Recover.
-    - **Coverage Gaps** – Which techniques lacked detection or logging.
-    - **Remediation Velocity** – How quickly you closed those gaps.
+- **MTTD** – Mean Time to Detect.
+- **MTTC/MTTR** – Mean Time to Contain/Recover.
+- **Coverage Gaps** – Which techniques lacked detection or logging.
+- **Remediation Velocity** – How quickly you closed those gaps.
 
 These metrics tell you how your defenses perform under cartel-grade pressure.
 
 **Step 5:** Deliverables
 Every emulation run should end with:
-    - Executive summary: current resilience posture, business impact, and top 3 investment priorities.
-    - Technical appendix: detection rule IDs, log sources, gaps, and proposed Exabeam/EDR improvements.
-    - Runbook updates: communication flows, backup restore validation, legal response templates.
+- Executive summary: current resilience posture, business impact, and top 3 investment priorities.
+- Technical appendix: detection rule IDs, log sources, gaps, and proposed Exabeam/EDR improvements.
+- Runbook updates: communication flows, backup restore validation, legal response templates.
 
 ---
 
