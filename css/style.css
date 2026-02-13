@@ -589,3 +589,327 @@ footer .social a {
     visibility: visible;
   }
 }
+
+/* =====================================================
+   WELLNESS PAGE STYLES
+   ===================================================== */
+
+/* Wellness Intro */
+.wellness-intro {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.wellness-intro h2 {
+  color: var(--purple);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.wellness-intro p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.8;
+}
+
+/* Wellness Section */
+.wellness-section {
+  padding: 4rem 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-icon {
+  font-size: 2.5rem;
+  margin-right: 1.5rem;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--purple) 0%, #5a4279 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header h2 {
+  color: var(--purple);
+  margin-bottom: 0.25rem;
+}
+
+.section-subtitle {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Wellness Grid & Cards */
+.wellness-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.wellness-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.wellness-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.wellness-card h3 {
+  color: var(--purple);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.wellness-card p {
+  color: #555;
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+.wellness-list {
+  list-style: none;
+  padding: 0;
+}
+
+.wellness-list li {
+  padding: 0.6rem 0 0.6rem 1.5rem;
+  position: relative;
+  color: #555;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.wellness-list li:last-child {
+  border-bottom: none;
+}
+
+.wellness-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: bold;
+}
+
+/* Crisis Section */
+.crisis-section {
+  padding: 3rem 0;
+}
+
+.crisis-box {
+  background: linear-gradient(135deg, var(--purple) 0%, #5a4279 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.crisis-box h3 {
+  color: var(--gold);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.crisis-resources {
+  margin: 1.5rem 0;
+}
+
+.crisis-resources p {
+  margin: 0.75rem 0;
+}
+
+.crisis-box a {
+  color: var(--gold);
+}
+
+.crisis-message {
+  font-style: italic;
+  margin-top: 1.5rem;
+  opacity: 0.95;
+}
+
+/* Cyberbullying Section */
+.cyberbullying-box {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+  border-left: 5px solid var(--gold);
+}
+
+.cyberbullying-box h2 {
+  color: var(--purple);
+  margin-bottom: 1rem;
+}
+
+.cyberbullying-box > p {
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.cyberbullying-box h3 {
+  color: var(--purple);
+  margin: 2rem 0 1.5rem;
+}
+
+.warning-signs {
+  background: #fff9e6;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.warning-signs h4 {
+  color: #b8860b;
+  margin-bottom: 1rem;
+}
+
+.signs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.signs-grid span {
+  padding: 0.5rem 0;
+  color: #555;
+}
+
+.signs-grid span::before {
+  content: "• ";
+  color: var(--gold);
+}
+
+/* Action Steps */
+.action-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.action-step {
+  background: #f5f0fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  background: var(--purple);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.action-step h4 {
+  color: #5a4279;
+  margin-bottom: 0.5rem;
+}
+
+.action-step p {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.witness-box {
+  background: #f5f0fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
+.witness-box h4 {
+  color: #5a4279;
+  margin-bottom: 0.75rem;
+}
+
+.witness-box p {
+  color: #555;
+  line-height: 1.7;
+}
+
+/* Resources Grid */
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.resource-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  border: 2px solid #eee;
+  transition: border-color 0.3s;
+}
+
+.resource-card:hover {
+  border-color: var(--gold);
+}
+
+.resource-card h4 {
+  color: var(--purple);
+  margin-bottom: 0.75rem;
+}
+
+.resource-card p {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.resource-link {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.resource-link:hover {
+  text-decoration: underline;
+}
+
+/* Wellness Responsive */
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .section-icon {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .wellness-intro {
+    padding: 2rem 1rem;
+  }
+
+  .cyberbullying-box {
+    padding: 1.5rem;
+  }
+
+  .crisis-box {
+    padding: 1.5rem;
+  }
+}
