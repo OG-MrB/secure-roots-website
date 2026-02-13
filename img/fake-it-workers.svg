@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0a2e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2d1450;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7851a9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#cfb53b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e8d066;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <clipPath id="screenClip">
+      <rect x="160" y="165" width="280" height="175" rx="4"/>
+    </clipPath>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#7851a9" stroke-width="0.3" opacity="0.15"/>
+    </pattern>
+    <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="4" y2="0" stroke="#7851a9" stroke-width="0.5" opacity="0.08"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#scanlines)"/>
+
+  <!-- Decorative circuit lines -->
+  <g stroke="#7851a9" stroke-width="1" opacity="0.2" fill="none">
+    <path d="M0 200 H100 L130 230 H200"/>
+    <path d="M0 400 H80 L110 370 H180"/>
+    <path d="M1200 150 H1100 L1070 180 H1000"/>
+    <path d="M1200 450 H1120 L1090 420 H1020"/>
+    <circle cx="200" cy="230" r="3" fill="#7851a9"/>
+    <circle cx="180" cy="370" r="3" fill="#7851a9"/>
+    <circle cx="1000" cy="180" r="3" fill="#7851a9"/>
+    <circle cx="1020" cy="420" r="3" fill="#7851a9"/>
+  </g>
+
+  <!-- Left laptop -->
+  <g transform="translate(0, 20)">
+    <!-- Laptop base -->
+    <path d="M130 345 L120 370 H480 L470 345" fill="#2a2a3a" stroke="#444" stroke-width="1"/>
+    <ellipse cx="300" cy="358" rx="40" ry="3" fill="#333" opacity="0.5"/>
+
+    <!-- Laptop screen frame -->
+    <rect x="145" y="150" width="310" height="200" rx="8" fill="#1e1e2e" stroke="#444" stroke-width="2"/>
+
+    <!-- Screen -->
+    <rect x="160" y="165" width="280" height="175" rx="4" fill="#0d1117"/>
+
+    <!-- Profile silhouette on screen - looks normal -->
+    <g clip-path="url(#screenClip)">
+      <!-- Fake employee profile -->
+      <circle cx="300" cy="220" r="30" fill="#3a3a5a" stroke="#cfb53b" stroke-width="1.5" opacity="0.8"/>
+      <!-- Head silhouette -->
+      <circle cx="300" cy="213" r="12" fill="#555"/>
+      <!-- Body silhouette -->
+      <ellipse cx="300" cy="240" rx="15" ry="10" fill="#555"/>
+
+      <!-- Fake name and details -->
+      <rect x="245" y="258" width="110" height="8" rx="2" fill="#3a5a3a" opacity="0.6"/>
+      <rect x="260" y="272" width="80" height="6" rx="2" fill="#3a4a5a" opacity="0.4"/>
+      <rect x="255" y="284" width="90" height="6" rx="2" fill="#3a4a5a" opacity="0.4"/>
+
+      <!-- Green checkmark (fake verification) -->
+      <circle cx="340" cy="210" r="8" fill="#2d5a2d" opacity="0.8"/>
+      <path d="M336 210 L339 213 L345 207" stroke="#4ade80" stroke-width="2" fill="none"/>
+
+      <!-- Question mark overlay -->
+      <text x="300" y="320" font-family="Arial, sans-serif" font-size="28" fill="#cfb53b" text-anchor="middle" opacity="0.6" filter="url(#glow)">?</text>
+    </g>
+
+    <!-- Camera dot -->
+    <circle cx="300" cy="157" r="2.5" fill="#333" stroke="#444" stroke-width="0.5"/>
+    <circle cx="300" cy="157" r="1" fill="#4ade80" opacity="0.8"/>
+  </g>
+
+  <!-- Connection lines from laptop to shadow figure -->
+  <g filter="url(#glow)">
+    <line x1="470" y1="280" x2="560" y2="260" stroke="#cfb53b" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.6"/>
+    <line x1="470" y1="300" x2="560" y2="310" stroke="#cfb53b" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.6"/>
+    <line x1="470" y1="320" x2="560" y2="360" stroke="#cfb53b" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.6"/>
+  </g>
+
+  <!-- Center: Shadow hooded figure -->
+  <g transform="translate(600, 270)">
+    <!-- Dark shadow pool beneath figure -->
+    <ellipse cx="0" cy="95" rx="55" ry="12" fill="#0a0515" opacity="0.5" filter="url(#softGlow)"/>
+
+    <!-- Outer shadow aura -->
+    <ellipse cx="0" cy="10" rx="75" ry="90" fill="#0d0620" opacity="0.4" filter="url(#softGlow)"/>
+
+    <!-- Cloak / robe body - wide flowing shape -->
+    <path d="M-50 -10 Q-55 40 -60 90 Q-40 100 0 105 Q40 100 60 90 Q55 40 50 -10 Q30 0 0 5 Q-30 0 -50 -10 Z" fill="#0d0d1a" stroke="#1a1a2e" stroke-width="1"/>
+
+    <!-- Inner cloak folds -->
+    <path d="M-20 10 Q-22 50 -25 90" stroke="#151525" stroke-width="1.5" fill="none" opacity="0.6"/>
+    <path d="M20 10 Q22 50 25 90" stroke="#151525" stroke-width="1.5" fill="none" opacity="0.6"/>
+    <path d="M0 15 Q-2 55 -3 95" stroke="#151525" stroke-width="1" fill="none" opacity="0.4"/>
+
+    <!-- Hood - large, deep, pointed shape -->
+    <path d="M-50 -10 Q-55 -40 -45 -65 Q-30 -90 0 -100 Q30 -90 45 -65 Q55 -40 50 -10 Q30 0 0 5 Q-30 0 -50 -10 Z" fill="#0d0d1a" stroke="#1a1a2e" stroke-width="1.5"/>
+
+    <!-- Hood inner shadow - creates depth -->
+    <path d="M-35 -10 Q-38 -35 -30 -55 Q-18 -72 0 -78 Q18 -72 30 -55 Q38 -35 35 -10 Q20 -2 0 0 Q-20 -2 -35 -10 Z" fill="#060310"/>
+
+    <!-- Deep face void -->
+    <ellipse cx="0" cy="-30" rx="22" ry="26" fill="#030208"/>
+
+    <!-- Glowing eyes - menacing slits -->
+    <ellipse cx="-10" cy="-32" rx="7" ry="2.5" fill="#cfb53b" opacity="0.95" filter="url(#glow)"/>
+    <ellipse cx="10" cy="-32" rx="7" ry="2.5" fill="#cfb53b" opacity="0.95" filter="url(#glow)"/>
+    <!-- Eye inner glow -->
+    <ellipse cx="-10" cy="-32" rx="4" ry="1.5" fill="#e8d066" opacity="0.7"/>
+    <ellipse cx="10" cy="-32" rx="4" ry="1.5" fill="#e8d066" opacity="0.7"/>
+
+    <!-- Shoulders definition -->
+    <path d="M-50 -10 Q-60 -5 -65 5" stroke="#1a1a2e" stroke-width="1" fill="none" opacity="0.5"/>
+    <path d="M50 -10 Q60 -5 65 5" stroke="#1a1a2e" stroke-width="1" fill="none" opacity="0.5"/>
+
+    <!-- Hands reaching toward keyboard -->
+    <path d="M-30 65 Q-25 75 -20 78" stroke="#1a1a2e" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M30 65 Q25 75 20 78" stroke="#1a1a2e" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- Keyboard/laptop -->
+    <rect x="-30" y="78" width="60" height="6" rx="2" fill="#2a2a3a" opacity="0.7"/>
+    <rect x="-26" y="79" width="8" height="3" rx="1" fill="#333" opacity="0.5"/>
+    <rect x="-14" y="79" width="8" height="3" rx="1" fill="#333" opacity="0.5"/>
+    <rect x="-2" y="79" width="8" height="3" rx="1" fill="#333" opacity="0.5"/>
+    <rect x="10" y="79" width="8" height="3" rx="1" fill="#333" opacity="0.5"/>
+
+    <!-- Data streams flowing from figure -->
+    <g opacity="0.35">
+      <text x="-60" y="-70" font-family="monospace" font-size="9" fill="#4ade80">01101</text>
+      <text x="38" y="-75" font-family="monospace" font-size="9" fill="#4ade80">10010</text>
+      <text x="-65" y="40" font-family="monospace" font-size="9" fill="#cfb53b">$$$</text>
+      <text x="42" y="35" font-family="monospace" font-size="9" fill="#cfb53b">$$$</text>
+    </g>
+  </g>
+
+  <!-- Right side: Detection/shield -->
+  <g transform="translate(850, 260)">
+    <!-- Shield shape -->
+    <path d="M0 -70 L55 -45 L55 20 Q55 65 0 85 Q-55 65 -55 20 L-55 -45 Z"
+          fill="none" stroke="url(#goldGrad)" stroke-width="3" filter="url(#glow)"/>
+    <path d="M0 -60 L45 -38 L45 15 Q45 55 0 72 Q-45 55 -45 15 L-45 -38 Z"
+          fill="#1a0a2e" opacity="0.8"/>
+
+    <!-- Eye/detection icon inside shield -->
+    <ellipse cx="0" cy="5" rx="25" ry="16" fill="none" stroke="#cfb53b" stroke-width="2"/>
+    <circle cx="0" cy="5" r="9" fill="none" stroke="#cfb53b" stroke-width="2"/>
+    <circle cx="0" cy="5" r="4" fill="#cfb53b"/>
+
+    <!-- Scanning lines -->
+    <line x1="-30" y1="-25" x2="30" y2="-25" stroke="#7851a9" stroke-width="1" opacity="0.5" stroke-dasharray="3 3"/>
+    <line x1="-25" y1="-15" x2="25" y2="-15" stroke="#7851a9" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+    <line x1="-30" y1="35" x2="30" y2="35" stroke="#7851a9" stroke-width="1" opacity="0.5" stroke-dasharray="3 3"/>
+    <line x1="-25" y1="45" x2="25" y2="45" stroke="#7851a9" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+
+    <!-- Alert indicators -->
+    <circle cx="50" cy="-55" r="6" fill="#ef4444" opacity="0.9" filter="url(#glow)"/>
+    <text x="50" y="-51" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle" font-weight="bold">!</text>
+  </g>
+
+  <!-- Connection lines from shadow to shield -->
+  <g filter="url(#glow)">
+    <line x1="650" y1="260" x2="790" y2="240" stroke="#ef4444" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+    <line x1="650" y1="290" x2="790" y2="270" stroke="#ef4444" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+    <line x1="650" y1="320" x2="790" y2="300" stroke="#ef4444" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+  </g>
+
+  <!-- Title text -->
+  <text x="600" y="500" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="white" text-anchor="middle" font-weight="bold" letter-spacing="1">
+    THE EMPLOYEE WHO DOESN'T EXIST
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="535" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#cfb53b" text-anchor="middle" letter-spacing="2">
+    DETECTING FAKE IT WORKERS IN YOUR ORGANIZATION
+  </text>
+
+  <!-- Gold accent line -->
+  <rect x="350" y="550" width="500" height="2" rx="1" fill="url(#goldGrad)" opacity="0.6"/>
+
+  <!-- Secure Roots branding -->
+  <text x="600" y="580" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#7851a9" text-anchor="middle" letter-spacing="3" opacity="0.7">
+    SECUREROOTS.IO
+  </text>
+
+  <!-- Subtle warning triangles -->
+  <g opacity="0.15">
+    <polygon points="100,520 110,500 120,520" fill="#cfb53b"/>
+    <polygon points="1080,520 1090,500 1100,520" fill="#cfb53b"/>
+  </g>
+</svg>
