@@ -32,6 +32,7 @@
         <li><a href="{{ site.baseurl }}/blog/">Blog</a></li>
         <li><a href="{{ site.baseurl }}/wellness/">Wellness</a></li>
         <li><a href="{{ site.baseurl }}/contact/">Contact</a></li>
+        <li><a href="{{ site.baseurl }}/contact/" class="nav-cta">Get Protected</a></li>
       </ul>
     </nav>
   </header>
@@ -40,15 +41,28 @@
     {{ content }}
   </main>
 
-  <!-- Footer / Social Links -->
+  <!-- Footer -->
   <footer>
-    <div class="social">
-      <a href="https://www.linkedin.com/company/secure-roots/" target="_blank">LinkedIn</a>
-      <a href="https://www.instagram.com/secure.roots/" target="_blank">Instagram</a>
-      <a href="https://x.com/secureroots_og" target="_blank">Twitter</a>
-
+    <div class="footer-content">
+      <div class="footer-newsletter">
+        <h4>Stay Informed</h4>
+        <p>Get cybersecurity insights delivered to your inbox.</p>
+        <form class="newsletter-form" action="https://formsubmit.co/eric@secureroots.io" method="POST">
+          <input type="hidden" name="_subject" value="New Newsletter Subscriber">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="email" name="email" placeholder="Your email address" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+      <div class="footer-links">
+        <div class="social">
+          <a href="https://www.linkedin.com/company/secure-roots/" target="_blank">LinkedIn</a>
+          <a href="https://www.instagram.com/secure.roots/" target="_blank">Instagram</a>
+          <a href="https://x.com/secureroots_og" target="_blank">Twitter</a>
+        </div>
+      </div>
     </div>
-    <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+    <p class="footer-copy">&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
   </footer>
 
   <script src="{{ site.baseurl }}/js/main.js"></script>
