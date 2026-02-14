@@ -3,7 +3,7 @@ layout: post
 title: "The Employee Who Doesn't Exist: How Fake IT Workers Are Infiltrating Organizations—and How to Stop Them"
 date: 2026-02-13 10:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
-image: /img/fake-it-workers.svg
+image: /img/fake_it_worker_2.png
 description: "North Korean operatives are getting hired as remote IT workers at companies worldwide. Learn how to detect fake employees in your organization using real-world detection strategies from the field."
 ---
 
