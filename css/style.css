@@ -1044,3 +1044,92 @@ footer .social a {
     padding: 1.5rem;
   }
 }
+
+/* =====================================================
+   NEWSLETTER THANK YOU PAGE
+   ===================================================== */
+
+.thank-you-section {
+  padding: 5rem 2rem;
+  text-align: center;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thank-you-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.thank-you-icon {
+  margin-bottom: 2rem;
+}
+
+.thank-you-section h1 {
+  font-size: 2.5rem;
+  color: var(--purple);
+  margin-bottom: 1rem;
+}
+
+.thank-you-lead {
+  font-size: 1.15rem;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+}
+
+.thank-you-next h3 {
+  color: var(--dark);
+  font-size: 1.1rem;
+  margin-bottom: 1.25rem;
+}
+
+.thank-you-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.thank-you-card {
+  display: block;
+  padding: 1.25rem;
+  background: #fff;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color 0.3s, transform 0.2s;
+}
+
+.thank-you-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.thank-you-card strong {
+  display: block;
+  color: var(--purple);
+  margin-bottom: 0.4rem;
+  font-size: 1rem;
+}
+
+.thank-you-card span {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .thank-you-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .thank-you-section h1 {
+    font-size: 2rem;
+  }
+
+  .thank-you-links {
+    grid-template-columns: 1fr;
+  }
+}

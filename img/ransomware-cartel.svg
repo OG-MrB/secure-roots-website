@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0a2e"/>
+      <stop offset="50%" style="stop-color:#2d1450"/>
+      <stop offset="100%" style="stop-color:#7851a9"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#cfb53b"/>
+      <stop offset="100%" style="stop-color:#e8d066"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#7851a9" stroke-width="0.3" opacity="0.12"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Three interconnected nodes representing the cartel -->
+
+  <!-- Node 1: Qilin (left) -->
+  <g transform="translate(250, 220)">
+    <circle cx="0" cy="0" r="65" fill="#1a0a2e" stroke="#cfb53b" stroke-width="2" opacity="0.9"/>
+    <circle cx="0" cy="0" r="55" fill="#0d0620" stroke="#7851a9" stroke-width="1"/>
+    <!-- Lock icon -->
+    <rect x="-15" y="-8" width="30" height="25" rx="3" fill="none" stroke="#cfb53b" stroke-width="2.5"/>
+    <path d="M-8 -8 L-8 -20 Q-8 -32 0 -32 Q8 -32 8 -20 L8 -8" fill="none" stroke="#cfb53b" stroke-width="2.5"/>
+    <circle cx="0" cy="5" r="3" fill="#cfb53b"/>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="14" fill="#cfb53b" text-anchor="middle" font-weight="bold">QILIN</text>
+  </g>
+
+  <!-- Node 2: LockBit (right) -->
+  <g transform="translate(950, 220)">
+    <circle cx="0" cy="0" r="65" fill="#1a0a2e" stroke="#cfb53b" stroke-width="2" opacity="0.9"/>
+    <circle cx="0" cy="0" r="55" fill="#0d0620" stroke="#7851a9" stroke-width="1"/>
+    <!-- Skull-like icon -->
+    <circle cx="0" cy="-8" r="20" fill="none" stroke="#cfb53b" stroke-width="2"/>
+    <circle cx="-7" cy="-12" r="4" fill="#cfb53b" opacity="0.8"/>
+    <circle cx="7" cy="-12" r="4" fill="#cfb53b" opacity="0.8"/>
+    <path d="M-6 2 L-3 -1 L0 2 L3 -1 L6 2" stroke="#cfb53b" stroke-width="1.5" fill="none"/>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="14" fill="#cfb53b" text-anchor="middle" font-weight="bold">LOCKBIT</text>
+  </g>
+
+  <!-- Node 3: DragonForce (top center) -->
+  <g transform="translate(600, 120)">
+    <circle cx="0" cy="0" r="65" fill="#1a0a2e" stroke="#cfb53b" stroke-width="2" opacity="0.9"/>
+    <circle cx="0" cy="0" r="55" fill="#0d0620" stroke="#7851a9" stroke-width="1"/>
+    <!-- Dragon/fire icon -->
+    <path d="M0 -25 Q-15 -10 -12 5 Q-8 15 0 20 Q8 15 12 5 Q15 -10 0 -25Z" fill="none" stroke="#cfb53b" stroke-width="2"/>
+    <path d="M0 -15 Q-8 -5 -6 5 Q-3 12 0 15 Q3 12 6 5 Q8 -5 0 -15Z" fill="#cfb53b" opacity="0.3"/>
+    <path d="M-5 0 Q-2 8 0 10 Q2 8 5 0" fill="#cfb53b" opacity="0.6"/>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="14" fill="#cfb53b" text-anchor="middle" font-weight="bold">DRAGONFORCE</text>
+  </g>
+
+  <!-- Connection lines between nodes (the cartel alliance) -->
+  <g stroke="#ef4444" stroke-width="2" opacity="0.5" filter="url(#glow)">
+    <!-- Qilin to DragonForce -->
+    <line x1="300" y1="170" x2="545" y2="140" stroke-dasharray="8 4"/>
+    <!-- DragonForce to LockBit -->
+    <line x1="655" y1="140" x2="900" y2="170" stroke-dasharray="8 4"/>
+    <!-- Qilin to LockBit -->
+    <line x1="315" y1="230" x2="885" y2="230" stroke-dasharray="8 4"/>
+  </g>
+
+  <!-- Pulse dots on connection lines -->
+  <circle cx="420" cy="155" r="4" fill="#ef4444" opacity="0.7" filter="url(#glow)"/>
+  <circle cx="780" cy="155" r="4" fill="#ef4444" opacity="0.7" filter="url(#glow)"/>
+  <circle cx="600" cy="230" r="4" fill="#ef4444" opacity="0.7" filter="url(#glow)"/>
+
+  <!-- Center label -->
+  <g transform="translate(600, 290)">
+    <rect x="-60" y="-15" width="120" height="30" rx="4" fill="#1a0a2e" stroke="#ef4444" stroke-width="1.5" opacity="0.9"/>
+    <text x="0" y="5" font-family="Arial, sans-serif" font-size="13" fill="#ef4444" text-anchor="middle" font-weight="bold">CARTEL</text>
+  </g>
+
+  <!-- Scattered data/money symbols -->
+  <g opacity="0.2" font-family="monospace" font-size="10">
+    <text x="120" y="100" fill="#4ade80">0x4F2A</text>
+    <text x="1050" y="90" fill="#4ade80">0xBE71</text>
+    <text x="80" y="380" fill="#cfb53b">$BTC</text>
+    <text x="1080" y="370" fill="#cfb53b">$XMR</text>
+    <text x="450" y="320" fill="#4ade80">RaaS</text>
+    <text x="720" y="320" fill="#4ade80">C2</text>
+  </g>
+
+  <!-- Decorative circuit lines -->
+  <g stroke="#7851a9" stroke-width="1" opacity="0.15" fill="none">
+    <path d="M0 400 H100 L130 370 H200"/>
+    <path d="M1200 400 H1100 L1070 370 H1000"/>
+    <circle cx="200" cy="370" r="3" fill="#7851a9"/>
+    <circle cx="1000" cy="370" r="3" fill="#7851a9"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="430" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="white" text-anchor="middle" font-weight="bold" letter-spacing="1">
+    WHEN CYBERCRIME BECOMES CORPORATE
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="465" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#cfb53b" text-anchor="middle" letter-spacing="2">
+    INSIDE THE RANSOMWARE CARTEL OF QILIN, LOCKBIT &amp; DRAGONFORCE
+  </text>
+
+  <!-- Gold accent line -->
+  <rect x="300" y="485" width="600" height="2" rx="1" fill="url(#goldGrad)" opacity="0.5"/>
+
+  <!-- Branding -->
+  <text x="600" y="515" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#7851a9" text-anchor="middle" letter-spacing="3" opacity="0.7">
+    SECUREROOTS.IO
+  </text>
+</svg>

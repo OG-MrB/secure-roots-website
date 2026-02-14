@@ -3,7 +3,7 @@ layout: post
 title: "When Cybercrime Becomes Corporate: Inside the Ransomware Cartel of Qilin, LockBit & DragonForce"
 date: 2025-11-30 16:51:00 -0700
 categories: [Cybercrime & Threat Awareness]
-image: /img/cybercriminals_have_jobs_too.png
+image: /img/ransomware-cartel.svg
 description: "Cybercrime isn’t chaos — it’s commerce. Discover why attackers have professionalized their trade, why every organization is a target, and how Secure Roots helps companies build cultures of security strong enough to withstand industrialized threat actors."
 ---
 
