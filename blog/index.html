@@ -19,7 +19,8 @@ permalink: /blog/
         {% endif %}
         <h3>{{ post.title }}</h3>
         <p class="post-date">{{ post.date | date: "%B %-d, %Y" }}</p>
-        <div class="post-summary">{{ post.excerpt }}</div>
+        <div class="post-summary">{{ post.excerpt | truncatewords: 30 }}</div>
+        <span class="read-more-link">Read More</span>
       </a>
     </article>
     {% endfor %}

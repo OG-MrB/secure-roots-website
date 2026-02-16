@@ -27,7 +27,8 @@ layout: default
         {% endif %}
         <h3>{{ post.title }}</h3>
         <p class="post-date">{{ post.date | date: '%B %-d, %Y' }}</p>
-        <p class="post-summary">{{ post.excerpt }}</p>
+        <p class="post-summary">{{ post.excerpt | truncatewords: 30 }}</p>
+        <span class="read-more-link">Read More</span>
       </a>
     </article>
     {% endfor %}
