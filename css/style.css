@@ -580,9 +580,6 @@ footer .social a {
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    padding: 10px;
   }
 
   .nav-links {

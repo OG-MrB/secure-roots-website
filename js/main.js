@@ -5,57 +5,30 @@ document.addEventListener("DOMContentLoaded", function () {
   const navLinks = document.querySelector(".nav-links");
   const body = document.body;
 
-  // iOS fix: make the div behave as an interactive element
-  mobileNavToggle.setAttribute("role", "button");
-  mobileNavToggle.setAttribute("tabindex", "0");
-
   // Create overlay element
   const navOverlay = document.createElement("div");
   navOverlay.className = "nav-overlay";
   document.body.appendChild(navOverlay);
 
-  // Toggle navigation — use touchend for iOS, click for desktop
-  // Prevent ghost double-fires with a debounce flag
-  let navToggleBusy = false;
-
-  function handleToggle(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (navToggleBusy) return;
-    navToggleBusy = true;
+  // Toggle navigation when hamburger icon is clicked
+  mobileNavToggle.addEventListener("click", function () {
     toggleNavigation();
-    setTimeout(function () { navToggleBusy = false; }, 300);
-  }
+  });
 
-  mobileNavToggle.addEventListener("touchend", handleToggle, { passive: false });
-  mobileNavToggle.addEventListener("click", handleToggle);
-
-  // Close navigation when overlay is tapped/clicked
-  function handleOverlayClose(e) {
-    e.preventDefault();
+  // Close navigation when overlay is clicked
+  navOverlay.addEventListener("click", function () {
     if (navLinks.classList.contains("active")) {
       toggleNavigation();
     }
-  }
+  });
 
-  navOverlay.addEventListener("touchend", handleOverlayClose, { passive: false });
-  navOverlay.addEventListener("click", handleOverlayClose);
-
-  // Close navigation when a link is clicked/tapped
-  document.querySelectorAll(".nav-links a").forEach(function (link) {
+  // Close navigation when a link is clicked
+  document.querySelectorAll(".nav-links a").forEach((link) => {
     link.addEventListener("click", function () {
       if (window.innerWidth <= 768 && navLinks.classList.contains("active")) {
         toggleNavigation();
       }
     });
-  });
-
-  // Keyboard accessibility — toggle on Enter/Space
-  mobileNavToggle.addEventListener("keydown", function (e) {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      toggleNavigation();
-    }
   });
 
   // Function to toggle navigation
