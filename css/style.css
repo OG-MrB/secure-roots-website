@@ -512,7 +512,11 @@ footer .social a {
   width: 44px;
   height: 20px;
   cursor: pointer;
-  z-index: 100;
+  z-index: 200;
+  padding: 12px;
+  box-sizing: content-box;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .mobile-nav-toggle span {
@@ -634,12 +638,14 @@ footer .social a {
     z-index: 150;
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: opacity 0.3s ease, visibility 0.3s ease;
   }
 
   .nav-overlay.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
 
   /* Mobile hero */
