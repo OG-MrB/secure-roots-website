@@ -1225,3 +1225,513 @@ footer .social a {
     grid-template-columns: 1fr;
   }
 }
+
+/* =====================================================
+   COMMUNITY PAGE STYLES
+   ===================================================== */
+
+/* Community Hero */
+.community-hero {
+  background: linear-gradient(135deg, #1A1A2E 0%, var(--purple) 60%, #5a4279 100%);
+  color: #fff;
+  text-align: center;
+  padding: 6rem 2rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.community-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(207, 181, 59, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(120, 81, 169, 0.3) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.community-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.community-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 1px;
+}
+
+.community-tagline {
+  font-size: 1.4rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.community-mission {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  opacity: 0.92;
+  margin-bottom: 2rem;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.community-hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-outline {
+  background: transparent !important;
+  border: 2px solid var(--gold);
+  color: var(--gold) !important;
+}
+
+.btn-outline:hover {
+  background: var(--gold) !important;
+  color: #fff !important;
+}
+
+/* The Problem We Solve */
+.community-problem {
+  padding: 5rem 0;
+  background: #fff;
+}
+
+.community-problem h2 {
+  text-align: center;
+  color: var(--purple);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.community-problem-intro {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 3rem;
+  color: #555;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card {
+  background: #f8f5fc;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  border-bottom: 4px solid var(--gold);
+  transition: transform 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--purple);
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.community-problem-closer {
+  text-align: center;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 500;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Our Programs */
+.community-programs {
+  padding: 5rem 0;
+  background: var(--light);
+}
+
+.community-programs h2 {
+  text-align: center;
+  color: var(--purple);
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.program-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.program-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.program-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.program-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, var(--purple) 0%, #5a4279 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.program-card h3 {
+  color: var(--purple);
+  font-size: 1.4rem;
+  margin-bottom: 0.25rem;
+}
+
+.program-subtitle {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.program-card p:last-child {
+  color: #555;
+  line-height: 1.7;
+  text-align: left;
+}
+
+/* Why Secure Roots */
+.community-why {
+  padding: 5rem 0;
+  background: #fff;
+}
+
+.community-why h2 {
+  text-align: center;
+  color: var(--purple);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.community-why-intro {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 3rem;
+  color: #555;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.differentiators-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+
+.differentiator {
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+.diff-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.differentiator h4 {
+  color: #1A1A2E;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.differentiator p {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Impact / By the Numbers */
+.community-impact {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #1A1A2E 0%, var(--purple) 100%);
+  color: #fff;
+}
+
+.community-impact h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.impact-stat {
+  text-align: center;
+}
+
+.impact-number {
+  display: block;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.impact-label {
+  display: block;
+  font-size: 0.95rem;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Partners & Support */
+.community-partners {
+  padding: 5rem 0;
+  background: var(--light);
+}
+
+.community-partners h2 {
+  text-align: center;
+  color: var(--purple);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.partners-intro {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 2.5rem;
+  color: #555;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.partner-badge {
+  background: #fff;
+  border: 2px solid #e8e0f0;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  color: #1A1A2E;
+  font-size: 0.95rem;
+  transition: border-color 0.3s;
+}
+
+.partner-badge:hover {
+  border-color: var(--gold);
+}
+
+/* Get Involved */
+.community-involved {
+  padding: 5rem 0;
+  background: #fff;
+}
+
+.community-involved h2 {
+  text-align: center;
+  color: var(--purple);
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.involved-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.involved-card {
+  background: #f8f5fc;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.involved-card:hover {
+  transform: translateY(-3px);
+}
+
+.involved-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 1.5rem;
+  background: var(--purple);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.involved-card h3 {
+  color: var(--purple);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.involved-card p {
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.involved-card .btn {
+  display: inline-block;
+}
+
+.involved-contact {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.involved-contact a {
+  color: var(--purple);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.involved-contact a:hover {
+  text-decoration: underline;
+}
+
+/* Community Page Responsive */
+@media (max-width: 1024px) {
+  .differentiators-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .community-hero {
+    padding: 4rem 1.5rem 3.5rem;
+  }
+
+  .community-hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .community-tagline {
+    font-size: 1.15rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .program-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .differentiators-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .impact-number {
+    font-size: 2.5rem;
+  }
+
+  .partners-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .involved-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .community-problem,
+  .community-programs,
+  .community-why,
+  .community-impact,
+  .community-partners,
+  .community-involved {
+    padding: 3.5rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .differentiators-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .partners-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .community-hero h1 {
+    font-size: 1.8rem;
+  }
+}
