@@ -5,6 +5,7 @@ date: 2026-03-12 10:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
 image: /img/wartime_cyber_checklist.png
 description: "With Iran-aligned cyber operations escalating and CISA operating at a fraction of its capacity, American businesses are largely on their own. Here's what your organization needs to do this week—not this quarter."
+publish_social: true
 ---
 
 You've seen the headlines. Iran-aligned hackers are retaliating after Operation Epic Fury. Dozens of hacktivist groups have mobilized. U.S. defense contractors, hospitals, financial institutions, and critical infrastructure operators are in the crosshairs.

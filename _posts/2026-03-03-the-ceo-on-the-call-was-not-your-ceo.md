@@ -5,6 +5,7 @@ date: 2026-03-03 10:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
 image: /img/deepfake_ceo_fraud.png
 description: "Deepfake executive impersonation is now the #1 concern for CEOs worldwide. Learn how AI-generated voice and video fraud is draining companies of millions—and what your leadership team can do right now to stop it."
+publish_social: true
 ---
 
 Your CFO joins a video call with three members of the executive team. The CEO is there. The General Counsel is there. The conversation is normal—quarterly figures, a pending acquisition, and a wire transfer that needs to go out before close of business. Everyone looks right. Everyone sounds right. The CFO authorizes the transfer.

@@ -5,6 +5,7 @@ date: 2025-11-30 16:51:00 -0700
 categories: [Cybercrime & Threat Awareness]
 image: /img/cartel.png
 description: "Cybercrime isn’t chaos — it’s commerce. Discover why attackers have professionalized their trade, why every organization is a target, and how Secure Roots helps companies build cultures of security strong enough to withstand industrialized threat actors."
+publish_social: true
 ---
 
 How a new alliance in the ransomware economy is forcing defenders to evolve from reaction to rehearsal.

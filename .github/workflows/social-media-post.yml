@@ -5,6 +5,13 @@ on:
     branches: [main]
     paths:
       - '_posts/**'
+  workflow_dispatch:
+    inputs:
+      post_all:
+        description: 'Post ALL articles with publish_social: true (retroactive)'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   post-to-social:
@@ -18,21 +25,28 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Detect modified blog posts
+      - name: Detect posts to process
         id: detect
         run: |
-          # Find added or modified markdown files in _posts/
-          CHANGED_POSTS=$(git diff --name-only --diff-filter=AM HEAD~1 HEAD -- '_posts/*.md' || true)
-
-          if [ -z "$CHANGED_POSTS" ]; then
-            echo "No blog posts changed."
-            echo "has_posts=false" >> $GITHUB_OUTPUT
-          else
-            echo "Changed posts:"
-            echo "$CHANGED_POSTS"
-            # Write to file for the Python script to read
-            echo "$CHANGED_POSTS" > /tmp/changed_posts.txt
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.post_all }}" = "true" ]; then
+            echo "Manual trigger: posting ALL articles with publish_social flag"
+            # List every post file in _posts/
+            find _posts -name '*.md' -type f | sort > /tmp/changed_posts.txt
             echo "has_posts=true" >> $GITHUB_OUTPUT
+            echo "Posts to process:"
+            cat /tmp/changed_posts.txt
+          else
+            # Normal push: detect changed posts only
+            CHANGED_POSTS=$(git diff --name-only --diff-filter=AM HEAD~1 HEAD -- '_posts/*.md' || true)
+            if [ -z "$CHANGED_POSTS" ]; then
+              echo "No blog posts changed."
+              echo "has_posts=false" >> $GITHUB_OUTPUT
+            else
+              echo "Changed posts:"
+              echo "$CHANGED_POSTS"
+              echo "$CHANGED_POSTS" > /tmp/changed_posts.txt
+              echo "has_posts=true" >> $GITHUB_OUTPUT
+            fi
           fi
 
       - name: Set up Python

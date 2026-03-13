@@ -5,6 +5,7 @@ date: 2026-02-13 10:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
 image: /img/fake_it_worker_2.png
 description: "North Korean operatives are getting hired as remote IT workers at companies worldwide. Learn how to detect fake employees in your organization using real-world detection strategies from the field."
+publish_social: true
 ---
 
 They pass the interview. They clear the background check. They show up on Slack, push code to GitHub, and collect a paycheck every two weeks. But the person behind the screen isn't who they claim to be—and the salary you're paying is funding a foreign government's weapons program.
