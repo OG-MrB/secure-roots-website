@@ -321,9 +321,6 @@ def cmd_regenerate(args: argparse.Namespace) -> None:
 def main() -> None:
     load_dotenv()
     p = argparse.ArgumentParser(description="Draft a Secure Roots blog post and open a PR.")
-    sub = p.add_subparsers(dest="cmd")
-
-    # default subcommand: new (also accepts a positional topic at the top level)
     p.add_argument("topic", nargs="?", help="Topic phrase for the post")
     p.add_argument("--notes", help="Inline notes / extra context for the draft")
     p.add_argument("--notes-file", help="Path to a file containing notes")
