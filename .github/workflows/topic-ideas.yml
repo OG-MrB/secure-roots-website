@@ -1,0 +1,32 @@
+name: Weekly Blog Topic Ideas
+
+on:
+  schedule:
+    # Mondays at 14:00 UTC = 7:00am Pacific (DST). Adjust as needed.
+    - cron: '0 14 * * 1'
+  workflow_dispatch:
+
+jobs:
+  topic-ideas:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Generate topic ideas
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/topic_ideas.py
