@@ -47,6 +47,18 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 log = logging.getLogger("draft_post")
 
 
+MAX_SLUG_LEN = 60
+
+
+def make_slug(title: str) -> str:
+    """Slugify a title and truncate at a word boundary so URLs and filenames stay readable."""
+    raw = slugify(title)
+    if len(raw) <= MAX_SLUG_LEN:
+        return raw
+    cut = raw[:MAX_SLUG_LEN].rsplit("-", 1)[0]
+    return cut or raw[:MAX_SLUG_LEN]
+
+
 def load_dotenv() -> None:
     if not ENV_FILE.exists():
         return
@@ -279,7 +291,7 @@ def cmd_new(args: argparse.Namespace) -> None:
         date_obj = date_field
     else:
         date_obj = datetime.strptime(str(date_field).split()[0], "%Y-%m-%d")
-    slug = slugify(title)
+    slug = make_slug(title)
 
     # Make sure the front matter image path matches the slug we'll save under
     expected_img = f"/img/{slug}.png"
@@ -304,7 +316,7 @@ def cmd_regenerate(args: argparse.Namespace) -> None:
     meta, _body = parse_front_matter(text)
     title = meta["title"]
     description = meta.get("description", "")
-    slug = slugify(title)
+    slug = make_slug(title)
 
     if not args.body_only:
         generate_hero_image(title, description, slug)
