@@ -5,7 +5,7 @@ date: 2026-05-02 16:39:40 -0700
 categories: [Cybercrime & Threat Awareness]
 image: /img/your-vendors-are-your-attack-surface-the-sap-npm-compromise.png
 description: "On April 29, attackers compromised four official SAP npm packages with 572,000 weekly downloads, stealing developer credentials and cloud secrets. Here's why every organization needs to treat third-party code and access as a primary attack surface—right now."
-publish_social: false
+publish_social: true
 ---
 
 On April 29, 2026, four official SAP npm packages were quietly weaponized. Not a typosquat. Not an abandoned project hijacked from a dead maintainer. Official packages—`mbt`, `@cap-js/db-service`, `@cap-js/postgres`, and `@cap-js/sqlite`—pulled roughly 572,000 times every week by developers who had every reason to trust them.

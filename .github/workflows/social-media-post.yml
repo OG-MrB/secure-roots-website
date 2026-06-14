@@ -1,10 +1,10 @@
 name: Post to Social Media
 
+# NOTE: Automatic posting is handled by stagger-social.yml (one post/day).
+# The push trigger was removed so editing posts / flipping publish_social does
+# NOT mass-post everything at once. This workflow is now manual-only and posts
+# ALL flagged articles in one batch — use it only for an intentional bulk send.
 on:
-  push:
-    branches: [main]
-    paths:
-      - '_posts/**'
   workflow_dispatch:
     inputs:
       post_all:

@@ -5,7 +5,7 @@ date: 2026-05-19 09:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
 image: /img/a-defenders-guide-to-python-dll-side-loading.png
 description: "Attackers increasingly run their code inside your trusted, signed applications using DLL side-loading and embedded Python. Here is how the technique works at a high level, and the detection and hardening steps a small team can apply this week."
-publish_social: false
+publish_social: true
 ---
 
 A lot of security spending assumes the malware will look like malware. A strange executable. An unsigned binary. A file with a name no one recognizes. Your tools watch for that, and they should.

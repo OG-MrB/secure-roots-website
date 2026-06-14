@@ -5,7 +5,7 @@ date: 2026-05-13 09:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
 image: /img/your-ai-coding-assistant-is-production-infrastructure.png
 description: "AI coding assistants run shell commands, read your filesystem, and use your credentials. The default configuration of every major vendor is a security incident waiting to happen. Here's the baseline every CISO should require before they ship code."
-publish_social: false
+publish_social: true
 ---
 
 The pitch is irresistible. Plug in an AI coding assistant. Watch it ship features. Sleep better.

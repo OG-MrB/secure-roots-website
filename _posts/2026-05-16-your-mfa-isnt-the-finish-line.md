@@ -5,7 +5,7 @@ date: 2026-05-16 09:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
 image: /img/your-mfa-isnt-the-finish-line.png
 description: "Attackers have stopped guessing passwords and started stealing live sessions. Infostealers and adversary-in-the-middle kits hand criminals an already-authenticated account, MFA included. Here is what that changes, and what to do this week."
-publish_social: false
+publish_social: true
 ---
 
 For a decade, the security advice has been simple and correct: turn on multi-factor authentication. It works. It stopped a generation of password-spray and credential-stuffing attacks cold.

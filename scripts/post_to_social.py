@@ -70,20 +70,15 @@ class FrontMatterParser:
         meta = yaml.safe_load(match.group(1))
         body = match.group(2).strip()
 
-        # Build the blog URL from the permalink pattern
-        date = meta.get("date")
-        if hasattr(date, "strftime"):
-            year = date.strftime("%Y")
-            month = date.strftime("%m")
-            day = date.strftime("%d")
-        else:
-            # Parse date string
-            date_str = str(date).split()[0]
-            parts = date_str.split("-")
-            year, month, day = parts[0], parts[1], parts[2]
-
-        title_slug = slugify(meta.get("title", "untitled"))
-        blog_url = f"{SITE_URL}/blog/{year}/{month}/{day}/{title_slug}/"
+        # Build the blog URL from Jekyll's permalink: /blog/:year/:month/:day/:title/
+        # Jekyll derives :title from the FILENAME slug (YYYY-MM-DD-<slug>.md),
+        # NOT from the front-matter title — so we must use the filename here or
+        # the links (and dedup keys) won't match the real permalink.
+        fm = re.match(r"(\d{4})-(\d{2})-(\d{2})-(.+)", Path(filepath).stem)
+        if not fm:
+            raise ValueError(f"Unexpected post filename (need YYYY-MM-DD-slug): {filepath}")
+        year, month, day, file_slug = fm.groups()
+        blog_url = f"{SITE_URL}/blog/{year}/{month}/{day}/{file_slug}/"
 
         # Get first ~30 words of body as fallback excerpt
         words = re.sub(r"[#*\[\]()>]", "", body).split()

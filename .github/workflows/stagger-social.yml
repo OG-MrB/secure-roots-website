@@ -1,0 +1,66 @@
+name: Staggered Social Post (1/day)
+
+# Posts ONE blog post per run — the newest article that has
+# `publish_social: true` and isn't yet in data/posted_urls.json.
+# Runs daily; self-stops once the backlog is drained.
+
+on:
+  schedule:
+    - cron: '0 16 * * *'   # 16:00 UTC ≈ 09:00 America/Los_Angeles
+  workflow_dispatch:        # manual trigger (used to fire the first post on demand)
+
+jobs:
+  stagger-post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Select next post
+        id: select
+        env:
+          SITE_URL: "https://secureroots.io"
+        run: |
+          NEXT="$(python scripts/select_next_post.py)"
+          if [ -z "$NEXT" ]; then
+            echo "Backlog drained — nothing to post today."
+            echo "has_post=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Next post: $NEXT"
+            echo "$NEXT" > /tmp/one.txt
+            echo "has_post=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Post to social media
+        if: steps.select.outputs.has_post == 'true'
+        env:
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_ACCOUNT_ID: ${{ secrets.INSTAGRAM_ACCOUNT_ID }}
+          SITE_URL: "https://secureroots.io"
+        run: |
+          python scripts/post_to_social.py /tmp/one.txt
+
+      - name: Commit tracking file updates
+        if: steps.select.outputs.has_post == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/posted_urls.json
+          git diff --cached --quiet || git commit -m "Social: posted next staggered article [skip ci]"
+          git push
