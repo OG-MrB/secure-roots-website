@@ -128,12 +128,24 @@ body {
 .post-item a {
   color: var(--dark);
   text-decoration: none;
-  display: block;
+  /* Flex column so the card content fills the card height and
+     "Read More" can pin to the bottom (margin-top:auto) — keeps
+     every card aligned regardless of title/summary length. */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .post-item h3 {
   margin-bottom: 0.75rem;
   color: var(--purple);
   font-size: 1.3rem;
+  line-height: 1.35;
+  /* Reserve a consistent 3-line title block so cards align across rows */
+  min-height: calc(1.35em * 3);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .post-date {
   font-size: 0.9rem;
@@ -148,6 +160,11 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   color: #444;
+  /* Clamp to 3 lines so summaries don't make cards uneven heights */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .contact {
   padding: 3rem 2rem;
