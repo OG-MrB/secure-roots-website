@@ -1246,3 +1246,47 @@ footer .social a {
   }
 }
 
+
+/* =====================================================
+   LEGAL PAGES (Privacy Policy, Terms)
+   ===================================================== */
+.legal {
+  padding: 3.5rem 2rem;
+  background: #fff;
+}
+.legal-content {
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--dark);
+  line-height: 1.7;
+}
+.legal-content .legal-meta {
+  color: #666;
+  margin-bottom: 2rem;
+}
+.legal-content h2 {
+  color: var(--purple);
+  font-size: 1.4rem;
+  margin: 2.25rem 0 0.75rem;
+}
+.legal-content p {
+  margin-bottom: 1rem;
+}
+.legal-content ul {
+  margin: 0 0 1rem 1.25rem;
+}
+.legal-content li {
+  margin-bottom: 0.5rem;
+}
+.legal-content a {
+  color: var(--purple);
+  text-decoration: underline;
+}
+
+.footer-copy a {
+  color: var(--gold);
+  text-decoration: none;
+}
+.footer-copy a:hover {
+  text-decoration: underline;
+}
