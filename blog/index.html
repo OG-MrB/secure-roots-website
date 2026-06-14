@@ -7,11 +7,11 @@ permalink: /blog/
 <section class="blog-list">
   <h1>Blog</h1>
 
-  {% if paginator.posts == empty %}
+  {% if site.posts == empty %}
   <p>No posts yet — check back later.</p>
   {% else %}
   <div class="post-grid">
-    {% for post in paginator.posts %}
+    {% for post in site.posts %}
     <article class="post-item">
       <a href="{{ post.url | relative_url }}">
         {% if post.image %}
@@ -25,17 +25,5 @@ permalink: /blog/
     </article>
     {% endfor %}
   </div>
-
-  <nav class="pagination">
-    {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">← Newer Posts</a>
-    {% endif %}
-
-    <span class="page-number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
-
-    {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}" class="next">Older Posts →</a>
-    {% endif %}
-  </nav>
   {% endif %}
 </section>
