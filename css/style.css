@@ -160,11 +160,14 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   color: #444;
-  /* Clamp to 3 lines so summaries don't make cards uneven heights */
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  /* Clamp to ~3 lines. Uses max-height (not -webkit-line-clamp) because
+     Jekyll wraps the excerpt in a <p> that may contain inline <code>, and
+     line-clamp fails to render that — collapsing the summary to blank. */
+  max-height: calc(1.6em * 3);
   overflow: hidden;
+}
+.post-summary p {
+  margin: 0;
 }
 .contact {
   padding: 3rem 2rem;
