@@ -92,7 +92,7 @@ class FrontMatterParser:
             "image": meta.get("image", ""),
             "categories": meta.get("categories", []),
             "publish_social": meta.get("publish_social", False),
-            "date": str(date),
+            "date": str(meta.get("date", "")),
             "blog_url": blog_url,
             "image_path": str(REPO_ROOT / meta.get("image", "").lstrip("/")),
             "excerpt": excerpt,
