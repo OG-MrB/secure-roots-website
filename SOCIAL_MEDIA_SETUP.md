@@ -107,10 +107,102 @@ Instagram posting requires a Meta (Facebook) developer account and an Instagram 
 
 ---
 
-## Step 4: Store Credentials in GitHub Secrets
+## Step 4: Facebook Page
 
-1. Go to your repo: [github.com/OG-MrB/secure-roots-website/settings/secrets/actions](https://github.com/OG-MrB/secure-roots-website/settings/secrets/actions)
-2. Click **New repository secret** for each of these:
+The Facebook publisher uses the same Meta app you set up for Instagram.
+
+1. In Graph API Explorer, run `me/accounts` to list your Pages
+2. Copy the **Page ID** for the Secure Roots page
+3. Copy the **Page Access Token** from the response (this is different from your user access token)
+4. Long-lived Page Access Tokens do **not** expire as long as the user token used to fetch them was long-lived
+
+**You'll need:**
+| Secret Name | Value |
+|---|---|
+| `FB_PAGE_ACCESS_TOKEN` | Page Access Token (long-lived) |
+| `FB_PAGE_ID` | Numeric Page ID |
+
+---
+
+## Step 5: Threads
+
+1. Threads uses its own Graph API surface at `graph.threads.net`
+2. Go to [developers.facebook.com](https://developers.facebook.com) → your app → add the **Threads API** product
+3. Generate a long-lived Threads access token following the [Threads docs](https://developers.facebook.com/docs/threads/getting-started)
+4. Get your Threads user ID with `GET https://graph.threads.net/v1.0/me?fields=id&access_token={token}`
+
+**You'll need:**
+| Secret Name | Value |
+|---|---|
+| `THREADS_ACCESS_TOKEN` | Long-lived Threads access token |
+| `THREADS_USER_ID` | Your Threads user ID |
+
+---
+
+## Step 6: Bluesky
+
+1. Log in to [bsky.app](https://bsky.app) with the Secure Roots account
+2. **Settings → Privacy and security → App passwords → Add app password**
+3. Name it `Secure Roots Auto-Post`. Save the generated password (format: `xxxx-xxxx-xxxx-xxxx`)
+4. The Bluesky publisher uses your handle (e.g. `secureroots.bsky.social`) and that app password — no API console needed
+
+**You'll need:**
+| Secret Name | Value |
+|---|---|
+| `BLUESKY_HANDLE` | e.g. `secureroots.bsky.social` |
+| `BLUESKY_APP_PASSWORD` | The generated app password |
+
+---
+
+## Step 7: Mastodon
+
+1. Pick or join an instance — `infosec.exchange` is a strong fit for cybersecurity content. `mastodon.social` works too
+2. Log in → **Preferences → Development → New application**
+3. Name: `Secure Roots Auto-Post`. Scopes: check `write:statuses` and `write:media` at minimum
+4. Save, then copy the **Access Token** from the application's detail page
+
+**You'll need:**
+| Secret Name | Value |
+|---|---|
+| `MASTODON_INSTANCE_URL` | e.g. `https://infosec.exchange` |
+| `MASTODON_ACCESS_TOKEN` | Application access token |
+
+---
+
+## Step 8: Drafting & Topic Pipeline (Anthropic + OpenAI)
+
+The local drafting CLI and weekly topic-ideas workflow need two extra keys.
+
+### Get the keys
+- **Anthropic API key** — [console.anthropic.com](https://console.anthropic.com) → Settings → API Keys → Create Key. Starts with `sk-ant-...`. Add a small credit balance under Settings → Billing.
+- **OpenAI API key** — [platform.openai.com](https://platform.openai.com) → API keys → Create new secret key. Starts with `sk-...`. `gpt-image-1` requires verifying your organization (Settings → General → Verify Organization, one-time photo-ID check).
+
+### Local `.env` (drafting CLI)
+The local script reads from `.env` in the repo root (already gitignored):
+
+```
+cat > .env << 'EOF'
+ANTHROPIC_API_KEY=sk-ant-...
+OPENAI_API_KEY=sk-...
+EOF
+```
+
+### GitHub Secrets (topic-ideas workflow)
+```
+gh secret set ANTHROPIC_API_KEY --repo OG-MrB/secure-roots-website
+gh secret set OPENAI_API_KEY --repo OG-MrB/secure-roots-website
+```
+(OpenAI is optional for the topic-ideas workflow but useful if we later add image generation in CI.)
+
+---
+
+## Step 9: Store Credentials in GitHub Secrets
+
+Either via the web UI at [github.com/OG-MrB/secure-roots-website/settings/secrets/actions](https://github.com/OG-MrB/secure-roots-website/settings/secrets/actions), or with the `gh` CLI:
+
+```
+gh secret set <NAME> --repo OG-MrB/secure-roots-website
+```
 
 | Secret Name | Platform |
 |---|---|
@@ -121,8 +213,37 @@ Instagram posting requires a Meta (Facebook) developer account and an Instagram 
 | `LINKEDIN_ACCESS_TOKEN` | LinkedIn |
 | `INSTAGRAM_ACCESS_TOKEN` | Instagram |
 | `INSTAGRAM_ACCOUNT_ID` | Instagram |
+| `FB_PAGE_ACCESS_TOKEN` | Facebook |
+| `FB_PAGE_ID` | Facebook |
+| `THREADS_ACCESS_TOKEN` | Threads |
+| `THREADS_USER_ID` | Threads |
+| `BLUESKY_HANDLE` | Bluesky |
+| `BLUESKY_APP_PASSWORD` | Bluesky |
+| `MASTODON_INSTANCE_URL` | Mastodon |
+| `MASTODON_ACCESS_TOKEN` | Mastodon |
+| `ANTHROPIC_API_KEY` | Topic-ideas workflow |
+| `OPENAI_API_KEY` | (Optional) Image gen in CI |
 
 **Note:** `GITHUB_TOKEN` is automatically available in GitHub Actions — you don't need to create it.
+
+---
+
+## Step 10: Drafting workflow (day-to-day usage)
+
+```
+# Pick up Monday's auto-generated topic issue, then:
+scripts/draft_post.py "AI-driven CEO impersonation"
+scripts/draft_post.py "AI-driven CEO impersonation" --notes "Cite the Arup case"
+scripts/draft_post.py --regenerate _posts/2026-05-01-ai-ceo-impersonation.md --image-only
+```
+
+What it does:
+1. Drafts the post body with Claude (Opus 4.7), using your existing posts as a style anchor
+2. Generates the hero image with `gpt-image-1`
+3. Writes `_posts/YYYY-MM-DD-<slug>.md` with `publish_social: false`
+4. Creates a `draft/<slug>` branch, commits, pushes, opens a PR
+
+You review the PR. When ready to publish, flip `publish_social: true` and merge — the existing social workflow does the rest.
 
 ---
 

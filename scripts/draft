@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Convenience wrapper for scripts/draft_post.py — runs inside the project venv.
+set -euo pipefail
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+VENV_PY="$REPO_ROOT/.venv/bin/python"
+if [[ ! -x "$VENV_PY" ]]; then
+  echo "Creating .venv ..." >&2
+  python3 -m venv "$REPO_ROOT/.venv"
+  "$VENV_PY" -m pip install -q --upgrade pip
+  "$VENV_PY" -m pip install -q -r "$REPO_ROOT/scripts/requirements.txt"
+fi
+exec "$VENV_PY" "$REPO_ROOT/scripts/draft_post.py" "$@"

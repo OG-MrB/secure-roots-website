@@ -453,6 +453,335 @@ class InstagramPublisher:
 
 
 # ---------------------------------------------------------------------------
+# Facebook Page Publisher
+# ---------------------------------------------------------------------------
+class FacebookPublisher:
+    """Post to a Facebook Page using the Graph API (uses the same Meta app as Instagram)."""
+
+    GRAPH_URL = "https://graph.facebook.com/v21.0"
+
+    def __init__(self):
+        self.access_token = os.environ.get("FB_PAGE_ACCESS_TOKEN")
+        self.page_id = os.environ.get("FB_PAGE_ID")
+
+    def is_configured(self) -> bool:
+        return bool(self.access_token and self.page_id)
+
+    def publish(self, meta: dict) -> str | None:
+        if not self.is_configured():
+            log.warning("Facebook credentials not configured — skipping")
+            return None
+
+        categories = meta.get("categories", [])
+        hashtags = " ".join(f"#{slugify(c, separator='')}" for c in categories)
+        hashtags += " #CyberSecurity #InfoSec"
+
+        message = (
+            f"{meta['title']}\n\n"
+            f"{meta['description']}\n\n"
+            f"Read the full article: {meta['blog_url']}\n\n"
+            f"{hashtags}"
+        )
+
+        # Prefer a photo post when we have an image; otherwise a link post.
+        image_rel = meta.get("image", "")
+        if image_rel:
+            image_url = f"{SITE_URL}{image_rel}"
+            resp = requests.post(
+                f"{self.GRAPH_URL}/{self.page_id}/photos",
+                params={
+                    "url": image_url,
+                    "caption": message,
+                    "access_token": self.access_token,
+                },
+                timeout=60,
+            )
+        else:
+            resp = requests.post(
+                f"{self.GRAPH_URL}/{self.page_id}/feed",
+                params={
+                    "message": message,
+                    "link": meta["blog_url"],
+                    "access_token": self.access_token,
+                },
+                timeout=60,
+            )
+
+        if resp.status_code in (200, 201):
+            post_id = resp.json().get("id") or resp.json().get("post_id") or "unknown"
+            log.info(f"Facebook: Posted ({post_id})")
+            return str(post_id)
+        log.error(f"Facebook: Post failed ({resp.status_code}): {resp.text}")
+        return None
+
+
+# ---------------------------------------------------------------------------
+# Threads Publisher
+# ---------------------------------------------------------------------------
+class ThreadsPublisher:
+    """Post to Threads via the Meta Threads Graph API."""
+
+    GRAPH_URL = "https://graph.threads.net/v1.0"
+
+    def __init__(self):
+        self.access_token = os.environ.get("THREADS_ACCESS_TOKEN")
+        self.user_id = os.environ.get("THREADS_USER_ID")
+
+    def is_configured(self) -> bool:
+        return bool(self.access_token and self.user_id)
+
+    def publish(self, meta: dict) -> str | None:
+        if not self.is_configured():
+            log.warning("Threads credentials not configured — skipping")
+            return None
+
+        # Threads posts are capped at 500 chars.
+        title = meta["title"]
+        url = meta["blog_url"]
+        suffix = f"\n\n{url}\n\n#CyberSecurity #InfoSec"
+        body_room = 500 - len(suffix) - len(title) - 2
+        description = meta.get("description", "")
+        if body_room > 40 and description:
+            if len(description) > body_room:
+                description = description[: body_room - 3] + "..."
+            text = f"{title}\n\n{description}{suffix}"
+        else:
+            text = f"{title}{suffix}"
+
+        # Step 1: create the media container
+        params = {
+            "media_type": "TEXT",
+            "text": text,
+            "access_token": self.access_token,
+        }
+        image_rel = meta.get("image", "")
+        if image_rel:
+            params["media_type"] = "IMAGE"
+            params["image_url"] = f"{SITE_URL}{image_rel}"
+
+        create_resp = requests.post(
+            f"{self.GRAPH_URL}/{self.user_id}/threads",
+            params=params,
+            timeout=60,
+        )
+        if create_resp.status_code != 200:
+            log.error(f"Threads: Container creation failed: {create_resp.text}")
+            return None
+        container_id = create_resp.json().get("id")
+        log.info(f"Threads: Container created ({container_id})")
+
+        time.sleep(3)  # Threads needs a moment before publish
+
+        publish_resp = requests.post(
+            f"{self.GRAPH_URL}/{self.user_id}/threads_publish",
+            params={
+                "creation_id": container_id,
+                "access_token": self.access_token,
+            },
+            timeout=60,
+        )
+        if publish_resp.status_code != 200:
+            log.error(f"Threads: Publish failed: {publish_resp.text}")
+            return None
+        post_id = publish_resp.json().get("id")
+        log.info(f"Threads: Published ({post_id})")
+        return str(post_id)
+
+
+# ---------------------------------------------------------------------------
+# Bluesky Publisher
+# ---------------------------------------------------------------------------
+class BlueskyPublisher:
+    """Post to Bluesky using the AT Protocol HTTP API."""
+
+    PDS_URL = "https://bsky.social"
+
+    def __init__(self):
+        self.handle = os.environ.get("BLUESKY_HANDLE")
+        self.app_password = os.environ.get("BLUESKY_APP_PASSWORD")
+
+    def is_configured(self) -> bool:
+        return bool(self.handle and self.app_password)
+
+    def _login(self) -> dict | None:
+        resp = requests.post(
+            f"{self.PDS_URL}/xrpc/com.atproto.server.createSession",
+            json={"identifier": self.handle, "password": self.app_password},
+            timeout=30,
+        )
+        if resp.status_code != 200:
+            log.error(f"Bluesky: Login failed: {resp.text}")
+            return None
+        return resp.json()
+
+    def _upload_image(self, jwt: str, image_path: str) -> dict | None:
+        with open(image_path, "rb") as f:
+            data = f.read()
+        # Bluesky requires images <= 1MB. Downscale if needed.
+        if len(data) > 950_000 and HAS_PILLOW:
+            try:
+                from io import BytesIO
+                img = Image.open(image_path).convert("RGB")
+                buf = BytesIO()
+                img.thumbnail((1600, 1600))
+                img.save(buf, format="JPEG", quality=82)
+                data = buf.getvalue()
+                content_type = "image/jpeg"
+            except Exception as e:
+                log.warning(f"Bluesky: image downscale failed: {e}")
+                content_type = "image/png"
+        else:
+            content_type = "image/png" if image_path.lower().endswith(".png") else "image/jpeg"
+
+        resp = requests.post(
+            f"{self.PDS_URL}/xrpc/com.atproto.repo.uploadBlob",
+            headers={"Authorization": f"Bearer {jwt}", "Content-Type": content_type},
+            data=data,
+            timeout=60,
+        )
+        if resp.status_code != 200:
+            log.error(f"Bluesky: image upload failed: {resp.text}")
+            return None
+        return resp.json().get("blob")
+
+    def publish(self, meta: dict) -> str | None:
+        if not self.is_configured():
+            log.warning("Bluesky credentials not configured — skipping")
+            return None
+
+        session = self._login()
+        if not session:
+            return None
+        jwt = session["accessJwt"]
+        did = session["did"]
+
+        # 300-char limit (graphemes; we approximate with chars).
+        title = meta["title"]
+        url = meta["blog_url"]
+        suffix = f"\n\n{url}"
+        budget = 300 - len(suffix)
+        if len(title) > budget:
+            title = title[: budget - 3] + "..."
+        text = f"{title}{suffix}"
+
+        # Build a facet so the URL renders as a clickable link.
+        link_start = text.encode("utf-8").find(url.encode("utf-8"))
+        link_end = link_start + len(url.encode("utf-8"))
+        facets = [
+            {
+                "index": {"byteStart": link_start, "byteEnd": link_end},
+                "features": [{"$type": "app.bsky.richtext.facet#link", "uri": url}],
+            }
+        ] if link_start >= 0 else []
+
+        record: dict = {
+            "$type": "app.bsky.feed.post",
+            "text": text,
+            "createdAt": datetime.utcnow().isoformat() + "Z",
+            "facets": facets,
+        }
+
+        image_path = meta.get("image_path", "")
+        if image_path and os.path.exists(image_path):
+            blob = self._upload_image(jwt, image_path)
+            if blob:
+                record["embed"] = {
+                    "$type": "app.bsky.embed.images",
+                    "images": [{"alt": meta.get("description", title)[:300], "image": blob}],
+                }
+
+        resp = requests.post(
+            f"{self.PDS_URL}/xrpc/com.atproto.repo.createRecord",
+            headers={"Authorization": f"Bearer {jwt}"},
+            json={
+                "repo": did,
+                "collection": "app.bsky.feed.post",
+                "record": record,
+            },
+            timeout=60,
+        )
+        if resp.status_code != 200:
+            log.error(f"Bluesky: Post failed: {resp.text}")
+            return None
+        uri = resp.json().get("uri", "unknown")
+        log.info(f"Bluesky: Posted ({uri})")
+        return uri
+
+
+# ---------------------------------------------------------------------------
+# Mastodon Publisher
+# ---------------------------------------------------------------------------
+class MastodonPublisher:
+    """Post to a Mastodon instance via the standard REST API."""
+
+    def __init__(self):
+        self.instance_url = (os.environ.get("MASTODON_INSTANCE_URL") or "").rstrip("/")
+        self.access_token = os.environ.get("MASTODON_ACCESS_TOKEN")
+
+    def is_configured(self) -> bool:
+        return bool(self.instance_url and self.access_token)
+
+    def _headers(self):
+        return {"Authorization": f"Bearer {self.access_token}"}
+
+    def _upload_media(self, image_path: str, alt_text: str) -> str | None:
+        with open(image_path, "rb") as f:
+            files = {"file": f}
+            data = {"description": alt_text[:1500]}
+            resp = requests.post(
+                f"{self.instance_url}/api/v2/media",
+                headers=self._headers(),
+                files=files,
+                data=data,
+                timeout=60,
+            )
+        if resp.status_code not in (200, 202):
+            log.error(f"Mastodon: media upload failed: {resp.text}")
+            return None
+        return resp.json().get("id")
+
+    def publish(self, meta: dict) -> str | None:
+        if not self.is_configured():
+            log.warning("Mastodon credentials not configured — skipping")
+            return None
+
+        categories = meta.get("categories", [])
+        hashtags = " ".join(f"#{slugify(c, separator='')}" for c in categories)
+        hashtags += " #CyberSecurity #InfoSec"
+        # 500-char limit on most instances.
+        body = f"{meta['title']}\n\n{meta['description']}\n\n{meta['blog_url']}\n\n{hashtags}"
+        if len(body) > 500:
+            # Drop description first, then truncate as a last resort.
+            body = f"{meta['title']}\n\n{meta['blog_url']}\n\n{hashtags}"
+            if len(body) > 500:
+                body = body[:497] + "..."
+
+        media_ids: list[str] = []
+        image_path = meta.get("image_path", "")
+        if image_path and os.path.exists(image_path):
+            media_id = self._upload_media(image_path, meta.get("description", meta["title"]))
+            if media_id:
+                media_ids.append(media_id)
+
+        payload = {"status": body, "visibility": "public"}
+        if media_ids:
+            payload["media_ids[]"] = media_ids
+
+        resp = requests.post(
+            f"{self.instance_url}/api/v1/statuses",
+            headers=self._headers(),
+            data=payload,
+            timeout=60,
+        )
+        if resp.status_code in (200, 201):
+            post_id = resp.json().get("id", "unknown")
+            log.info(f"Mastodon: Posted ({post_id})")
+            return str(post_id)
+        log.error(f"Mastodon: Post failed ({resp.status_code}): {resp.text}")
+        return None
+
+
+# ---------------------------------------------------------------------------
 # Main Orchestration
 # ---------------------------------------------------------------------------
 def main():
@@ -480,6 +809,17 @@ def main():
     twitter = TwitterPublisher()
     linkedin = LinkedInPublisher()
     instagram = InstagramPublisher()
+    facebook = FacebookPublisher()
+    threads = ThreadsPublisher()
+    bluesky = BlueskyPublisher()
+    mastodon = MastodonPublisher()
+
+    extras = [
+        ("facebook", facebook),
+        ("threads", threads),
+        ("bluesky", bluesky),
+        ("mastodon", mastodon),
+    ]
 
     results = {"processed": 0, "posted": 0, "skipped": 0, "errors": 0}
 
@@ -550,6 +890,21 @@ def main():
                 results["errors"] += 1
         else:
             log.info("Instagram: Already posted — skipping")
+
+        # --- Facebook / Threads / Bluesky / Mastodon ---
+        for platform_name, publisher in extras:
+            time.sleep(2)
+            if tracker.has_been_posted(blog_url, platform_name):
+                log.info(f"{platform_name.title()}: Already posted — skipping")
+                continue
+            try:
+                pid = publisher.publish(meta)
+                if pid:
+                    tracker.mark_posted(blog_url, title, platform_name, pid)
+                    posted_any = True
+            except Exception as e:
+                log.error(f"{platform_name.title()} error: {e}")
+                results["errors"] += 1
 
         if posted_any:
             results["posted"] += 1
