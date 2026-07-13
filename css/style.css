@@ -748,11 +748,16 @@ footer .social a {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   padding-bottom: 1.5rem;
   gap: 2rem;
   flex-wrap: wrap;
+}
+
+.footer-newsletter {
+  flex: 0 1 480px;
+  max-width: 480px;
 }
 
 .footer-newsletter h4 {
