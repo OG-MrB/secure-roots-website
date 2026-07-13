@@ -1,0 +1,20 @@
+<!--
+  Reusable lead-magnet opt-in form.
+  Usage: {% include lead-magnet-form.html source="hipaa" label="Get the HIPAA SRA Checklist" %}
+
+  TODO (Eric, one-time): once the MailerLite account + group are created, replace the
+  form action below with the real MailerLite form embed code (Forms > Embedded Forms >
+  copy HTML) and delete the FormSubmit fallback. Until then this form works today via
+  FormSubmit (emails Eric directly) so nothing is broken in the meantime.
+-->
+<div class="lead-magnet-box">
+  <form class="lead-magnet-form" action="https://formsubmit.co/info@secureroots.io" method="POST">
+    <input type="hidden" name="_subject" value="Lead magnet signup: {{ include.source }}">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://secureroots.io/thank-you/">
+    <input type="hidden" name="source" value="{{ include.source }}">
+    <input type="email" name="email" placeholder="Your work email" required>
+    <button type="submit" class="btn btn-large">{{ include.label | default: "Send Me the Checklist" }}</button>
+  </form>
+  <p class="lead-magnet-note">No spam, unsubscribe anytime. Reply STOP to any email to opt out.</p>
+</div>

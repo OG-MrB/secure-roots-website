@@ -6,10 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline';
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://assets.mailerlite.com;
                  style-src 'self' 'unsafe-inline';
-                 img-src 'self' data:; connect-src 'self';
-                 form-action https://formsubmit.co">
+                 img-src 'self' data: https://assets.mailerlite.com; connect-src 'self' https://assets.mailerlite.com https://api.mailerlite.com;
+                 form-action https://formsubmit.co https://assets.mailerlite.com https://*.mailerlite.com">
   <title>{{ page.title }} | {{ site.title }}</title>
   <link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseurl }}/img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseurl }}/img/favicon-16.png">
@@ -52,10 +52,11 @@
       <div class="footer-newsletter">
         <h4>Stay Informed</h4>
         <p>Get cybersecurity insights delivered to your inbox.</p>
-        <form class="newsletter-form" action="https://formsubmit.co/eric@secureroots.io" method="POST">
+        <form class="newsletter-form" action="https://formsubmit.co/info@secureroots.io" method="POST">
           <input type="hidden" name="_subject" value="New Newsletter Subscriber">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_next" value="https://secureroots.io/newsletter-thanks/">
+          <input type="hidden" name="source" value="footer">
           <input type="email" name="email" placeholder="Your email address" required>
           <button type="submit">Subscribe</button>
         </form>

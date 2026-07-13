@@ -1290,3 +1290,33 @@ footer .social a {
 .footer-copy a:hover {
   text-decoration: underline;
 }
+
+/* Lead magnet opt-in box (landing pages) */
+.lead-magnet-box {
+  background: var(--light);
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-top: 1.5rem;
+  max-width: 480px;
+}
+
+.lead-magnet-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lead-magnet-form input[type="email"] {
+  padding: 0.85rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.lead-magnet-note {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+}
