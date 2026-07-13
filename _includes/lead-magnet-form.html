@@ -1,6 +1,8 @@
 <!--
   Reusable lead-magnet opt-in form.
-  Usage: {% include lead-magnet-form.html source="hipaa" label="Get the HIPAA SRA Checklist" %}
+  Usage: include lead-magnet-form.html with source="hipaa" and label="Get the HIPAA SRA Checklist"
+  (written as prose here on purpose, a literal Liquid include tag inside this
+  comment caused Jekyll to recurse into itself: "Nesting too deep")
 
   Status: the site-wide footer signup now runs on the real MailerLite form
   (see _layouts/default.html, ml-embedded div, form 16Q0dN). This per-vertical
