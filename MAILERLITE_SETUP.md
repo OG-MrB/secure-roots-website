@@ -1,6 +1,8 @@
-# MailerLite setup, the one part I can't do for you
+# MailerLite setup
 
-I can't create accounts on your behalf (that requires your own login/password), so this is the one manual step. Everything else (landing pages, lead magnets, forms, CSP) is already built and live-ready.
+**Status: done for the site-wide footer signup.** Account created (info@secureroots.io), form "Lead Magnet signup" built and branded (purple heading, gold button, matching the site exactly), universal script wired into every page via `_layouts/default.html`, footer embed live (`ml-embedded` div, form `16Q0dN`). Double opt-in is on but MailerLite is currently blocking it from actually taking effect until the account is approved, check Account settings for what that requires.
+
+**Still open:** the four vertical landing pages (`/hipaa/`, `/law-firms/`, `/cmmc/`, `/nonprofits/`) still run on FormSubmit, not MailerLite, because only one generic MailerLite form exists so far. Steps below are for that expansion, optional.
 
 ## 1. Create the account (5 min)
 
