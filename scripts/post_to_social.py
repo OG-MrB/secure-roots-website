@@ -453,6 +453,88 @@ class InstagramPublisher:
 
 
 # ---------------------------------------------------------------------------
+# Bluesky Publisher
+# ---------------------------------------------------------------------------
+class BlueskyPublisher:
+    """Post to Bluesky via the AT Protocol (handle + app password)."""
+
+    PDS = "https://bsky.social"
+
+    def __init__(self):
+        self.handle = os.environ.get("BLUESKY_HANDLE")
+        self.app_password = os.environ.get("BLUESKY_APP_PASSWORD")
+
+    def is_configured(self) -> bool:
+        return bool(self.handle and self.app_password)
+
+    def publish(self, meta: dict) -> str | None:
+        if not self.is_configured():
+            log.warning("Bluesky credentials not configured — skipping")
+            return None
+
+        # 1. Authenticate — exchange handle + app password for a session JWT
+        sess_resp = requests.post(
+            f"{self.PDS}/xrpc/com.atproto.server.createSession",
+            json={"identifier": self.handle, "password": self.app_password},
+        )
+        if sess_resp.status_code != 200:
+            log.error(f"Bluesky: auth failed ({sess_resp.status_code}): {sess_resp.text}")
+            return None
+        session = sess_resp.json()
+        auth = {"Authorization": f"Bearer {session['accessJwt']}"}
+        did = session["did"]
+
+        # 2. Upload the featured image as a blob for the link-card thumbnail
+        thumb = None
+        image_path = meta.get("image_path", "")
+        if image_path and os.path.exists(image_path):
+            with open(image_path, "rb") as f:
+                image_bytes = f.read()
+            blob_resp = requests.post(
+                f"{self.PDS}/xrpc/com.atproto.repo.uploadBlob",
+                headers={**auth, "Content-Type": "image/png"},
+                data=image_bytes,
+            )
+            if blob_resp.status_code == 200:
+                thumb = blob_resp.json().get("blob")
+                log.info("Bluesky: Image uploaded")
+            else:
+                log.warning(f"Bluesky: Image upload failed ({blob_resp.status_code}) — posting without thumbnail")
+
+        # 3. Build the post with an external link card pointing at the article
+        external = {
+            "uri": meta["blog_url"],
+            "title": meta["title"][:300],
+            "description": (meta.get("description") or "")[:300],
+        }
+        if thumb:
+            external["thumb"] = thumb
+
+        record = {
+            "$type": "app.bsky.feed.post",
+            "text": meta["title"][:290],
+            "createdAt": datetime.utcnow().isoformat() + "Z",
+            "embed": {"$type": "app.bsky.embed.external", "external": external},
+        }
+
+        resp = requests.post(
+            f"{self.PDS}/xrpc/com.atproto.repo.createRecord",
+            headers=auth,
+            json={
+                "repo": did,
+                "collection": "app.bsky.feed.post",
+                "record": record,
+            },
+        )
+        if resp.status_code == 200:
+            uri = resp.json().get("uri", "unknown")
+            log.info(f"Bluesky: Posted ({uri})")
+            return str(uri)
+        log.error(f"Bluesky: Post failed ({resp.status_code}): {resp.text}")
+        return None
+
+
+# ---------------------------------------------------------------------------
 # Main Orchestration
 # ---------------------------------------------------------------------------
 def main():
@@ -477,9 +559,9 @@ def main():
     parser = FrontMatterParser()
 
     # Initialize publishers
-    twitter = TwitterPublisher()
     linkedin = LinkedInPublisher()
     instagram = InstagramPublisher()
+    bluesky = BlueskyPublisher()
 
     results = {"processed": 0, "posted": 0, "skipped": 0, "errors": 0}
 
@@ -508,18 +590,18 @@ def main():
 
         posted_any = False
 
-        # --- Twitter ---
-        if not tracker.has_been_posted(blog_url, "twitter"):
+        # --- Bluesky ---
+        if not tracker.has_been_posted(blog_url, "bluesky"):
             try:
-                tweet_id = twitter.publish(meta)
-                if tweet_id:
-                    tracker.mark_posted(blog_url, title, "twitter", tweet_id)
+                bsky_uri = bluesky.publish(meta)
+                if bsky_uri:
+                    tracker.mark_posted(blog_url, title, "bluesky", bsky_uri)
                     posted_any = True
             except Exception as e:
-                log.error(f"Twitter error: {e}")
+                log.error(f"Bluesky error: {e}")
                 results["errors"] += 1
         else:
-            log.info("Twitter: Already posted — skipping")
+            log.info("Bluesky: Already posted — skipping")
 
         time.sleep(2)  # Brief pause between platforms
 
