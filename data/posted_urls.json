@@ -1,3 +1,14 @@
 {
-  "posted_articles": []
+  "posted_articles": [
+    {
+      "blog_url": "https://secureroots.io/blog/2026/05/19/a-defenders-guide-to-python-dll-side-loading/",
+      "title": "When Trusted Software Loads the Attacker's Code: A Defender's Guide to Python DLL Side-Loading",
+      "platforms": {
+        "bluesky": {
+          "id": "at://did:plc:o45qfovqgz7erwrijc4insqe/app.bsky.feed.post/3mqwyjttb4u2j",
+          "published_at": "2026-07-18T19:24:36.060367Z"
+        }
+      }
+    }
+  ]
 }
