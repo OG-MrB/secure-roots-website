@@ -464,8 +464,38 @@ class BlueskyPublisher:
         self.handle = os.environ.get("BLUESKY_HANDLE")
         self.app_password = os.environ.get("BLUESKY_APP_PASSWORD")
 
+    # Bluesky rejects external-embed thumbnails larger than 1,000,000 bytes.
+    MAX_THUMB_BYTES = 976_000
+
     def is_configured(self) -> bool:
         return bool(self.handle and self.app_password)
+
+    def _thumbnail_bytes(self, image_path: str):
+        """Return (bytes, content_type) for a thumbnail under Bluesky's 1MB
+        limit, or (None, None) if it can't be produced. Small images pass
+        through as-is; larger ones are downscaled + JPEG-compressed."""
+        import io
+        try:
+            raw = open(image_path, "rb").read()
+            if len(raw) <= self.MAX_THUMB_BYTES:
+                ct = "image/png" if image_path.lower().endswith(".png") else "image/jpeg"
+                return raw, ct
+            if not HAS_PILLOW:
+                log.warning("Bluesky: image over 1MB and Pillow unavailable — posting without thumbnail")
+                return None, None
+            img = Image.open(image_path).convert("RGB")
+            img.thumbnail((1200, 1200))
+            out = None
+            for quality in (85, 70, 55, 40):
+                buf = io.BytesIO()
+                img.save(buf, format="JPEG", quality=quality)
+                out = buf.getvalue()
+                if len(out) <= self.MAX_THUMB_BYTES:
+                    return out, "image/jpeg"
+            return out, "image/jpeg"  # smallest achieved — best effort
+        except Exception as e:
+            log.warning(f"Bluesky: thumbnail prep failed ({e}) — posting without thumbnail")
+            return None, None
 
     def publish(self, meta: dict) -> str | None:
         if not self.is_configured():
@@ -484,22 +514,24 @@ class BlueskyPublisher:
         auth = {"Authorization": f"Bearer {session['accessJwt']}"}
         did = session["did"]
 
-        # 2. Upload the featured image as a blob for the link-card thumbnail
+        # 2. Upload the featured image as the link-card thumbnail.
+        #    Bluesky rejects embed thumbnails over 1MB, so compress first.
+        #    Best-effort: the post still goes out without a thumbnail.
         thumb = None
         image_path = meta.get("image_path", "")
         if image_path and os.path.exists(image_path):
-            with open(image_path, "rb") as f:
-                image_bytes = f.read()
-            blob_resp = requests.post(
-                f"{self.PDS}/xrpc/com.atproto.repo.uploadBlob",
-                headers={**auth, "Content-Type": "image/png"},
-                data=image_bytes,
-            )
-            if blob_resp.status_code == 200:
-                thumb = blob_resp.json().get("blob")
-                log.info("Bluesky: Image uploaded")
-            else:
-                log.warning(f"Bluesky: Image upload failed ({blob_resp.status_code}) — posting without thumbnail")
+            thumb_bytes, content_type = self._thumbnail_bytes(image_path)
+            if thumb_bytes:
+                blob_resp = requests.post(
+                    f"{self.PDS}/xrpc/com.atproto.repo.uploadBlob",
+                    headers={**auth, "Content-Type": content_type},
+                    data=thumb_bytes,
+                )
+                if blob_resp.status_code == 200:
+                    thumb = blob_resp.json().get("blob")
+                    log.info(f"Bluesky: Thumbnail uploaded ({len(thumb_bytes)} bytes)")
+                else:
+                    log.warning(f"Bluesky: Thumbnail upload failed ({blob_resp.status_code}) — posting without thumbnail")
 
         # 3. Build the post with an external link card pointing at the article
         external = {
