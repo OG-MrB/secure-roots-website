@@ -12,6 +12,12 @@ permalink: /blog/:year/:month/:day/:title/
 # Plugins
 plugins:
   - jekyll-sitemap
+  - jekyll-feed
+
+# jekyll-feed: generate the blog RSS at /feed.xml (limit newest 20)
+feed:
+  path: feed.xml
+  posts_limit: 20
 
 # Time zone
 timezone: America/Los_Angeles
