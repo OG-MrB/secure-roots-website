@@ -223,12 +223,17 @@ class TwitterPublisher:
 # LinkedIn Publisher
 # ---------------------------------------------------------------------------
 class LinkedInPublisher:
-    """Post to LinkedIn company page using the REST API."""
+    """Post to a LinkedIn organization (company page) via the versioned
+    Posts API + Images API. Shares each article as a clickable link card."""
 
-    API_BASE = "https://api.linkedin.com/v2"
+    REST_BASE = "https://api.linkedin.com/rest"
+    VERSION = "202411"  # LinkedIn-Version (YYYYMM) — bump every few months
 
     def __init__(self):
         self.access_token = os.environ.get("LINKEDIN_ACCESS_TOKEN")
+        # Numeric company-page id (from the page's admin URL). Optional — if
+        # omitted we try to discover it, which needs an extra read scope.
+        self.org_id = os.environ.get("LINKEDIN_ORG_ID")
 
     def is_configured(self) -> bool:
         return bool(self.access_token)
@@ -238,139 +243,104 @@ class LinkedInPublisher:
             "Authorization": f"Bearer {self.access_token}",
             "Content-Type": "application/json",
             "X-Restli-Protocol-Version": "2.0.0",
+            "LinkedIn-Version": self.VERSION,
         }
 
-    def _get_org_id(self) -> str | None:
-        """Get the organization URN for the Secure Roots company page."""
+    def _org_urn(self) -> str | None:
+        if self.org_id:
+            return f"urn:li:organization:{self.org_id}"
+        # Fallback: discover the first org this token can administer.
         resp = requests.get(
-            f"{self.API_BASE}/organizationAcls?q=roleAssignee",
+            f"{self.REST_BASE}/organizationAcls?q=roleAssignee&role=ADMINISTRATOR&state=APPROVED",
             headers=self._headers(),
         )
         if resp.status_code != 200:
-            log.warning(f"LinkedIn: Failed to get org ID: {resp.text}")
+            log.warning(f"LinkedIn: org discovery failed ({resp.status_code}): {resp.text}")
             return None
         elements = resp.json().get("elements", [])
-        if elements:
-            return elements[0].get("organization")
-        return None
+        return elements[0].get("organization") if elements else None
 
-    def _upload_image(self, org_urn: str, image_path: str) -> str | None:
-        """Upload an image and return the asset URN."""
-        # Step 1: Register upload
-        register_body = {
-            "registerUploadRequest": {
-                "recipes": ["urn:li:digitalmediaRecipe:feedshare-image"],
-                "owner": org_urn,
-                "serviceRelationships": [
-                    {
-                        "relationshipType": "OWNER",
-                        "identifier": "urn:li:userGeneratedContent",
-                    }
-                ],
-            }
-        }
-        resp = requests.post(
-            f"{self.API_BASE}/assets?action=registerUpload",
+    def _upload_image(self, owner_urn: str, image_path: str) -> str | None:
+        """Upload an image via the Images API; returns an urn:li:image URN."""
+        init = requests.post(
+            f"{self.REST_BASE}/images?action=initializeUpload",
             headers=self._headers(),
-            json=register_body,
+            json={"initializeUploadRequest": {"owner": owner_urn}},
         )
-        if resp.status_code not in (200, 201):
-            log.warning(f"LinkedIn: Image register failed: {resp.text}")
+        if init.status_code not in (200, 201):
+            log.warning(f"LinkedIn: image init failed ({init.status_code}): {init.text}")
             return None
+        value = init.json()["value"]
+        upload_url = value["uploadUrl"]
+        image_urn = value["image"]
 
-        upload_url = resp.json()["value"]["uploadMechanism"][
-            "com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest"
-        ]["uploadUrl"]
-        asset = resp.json()["value"]["asset"]
-
-        # Step 2: Upload the image binary
         with open(image_path, "rb") as f:
-            upload_resp = requests.put(
+            up = requests.put(
                 upload_url,
                 headers={"Authorization": f"Bearer {self.access_token}"},
                 data=f,
             )
-        if upload_resp.status_code not in (200, 201):
-            log.warning(f"LinkedIn: Image upload failed: {upload_resp.status_code}")
+        if up.status_code not in (200, 201):
+            log.warning(f"LinkedIn: image upload failed ({up.status_code})")
             return None
-
-        log.info(f"LinkedIn: Image uploaded ({asset})")
-        return asset
+        log.info(f"LinkedIn: Image uploaded ({image_urn})")
+        return image_urn
 
     def publish(self, meta: dict) -> str | None:
         if not self.is_configured():
             log.warning("LinkedIn credentials not configured — skipping")
             return None
 
-        org_urn = self._get_org_id()
+        org_urn = self._org_urn()
         if not org_urn:
-            log.warning("LinkedIn: Could not determine organization — skipping")
+            log.warning("LinkedIn: could not determine organization — set LINKEDIN_ORG_ID — skipping")
             return None
 
-        # Build post text
+        # Upload the featured image as the article thumbnail (best effort).
+        thumb_urn = None
+        image_path = meta.get("image_path", "")
+        if image_path and os.path.exists(image_path):
+            thumb_urn = self._upload_image(org_urn, image_path)
+
         categories = meta.get("categories", [])
         hashtags = " ".join(f"#{slugify(c, separator='')}" for c in categories)
         hashtags += " #CyberSecurity #InfoSec"
+        commentary = f"{meta['title']}\n\n{meta.get('description', '')}\n\n{hashtags}"
 
-        text = (
-            f"{meta['title']}\n\n"
-            f"{meta['description']}\n\n"
-            f"Read the full article: {meta['blog_url']}\n\n"
-            f"{hashtags}"
-        )
+        article = {
+            "source": meta["blog_url"],
+            "title": meta["title"][:400],
+            "description": (meta.get("description") or "")[:300],
+        }
+        if thumb_urn:
+            article["thumbnail"] = thumb_urn
 
-        # Upload image if available
-        image_asset = None
-        image_path = meta.get("image_path", "")
-        if image_path and os.path.exists(image_path):
-            image_asset = self._upload_image(org_urn, image_path)
-
-        # Build share payload
-        share_body = {
+        body = {
             "author": org_urn,
-            "lifecycleState": "PUBLISHED",
-            "specificContent": {
-                "com.linkedin.ugc.ShareContent": {
-                    "shareCommentary": {"text": text},
-                    "shareMediaCategory": "ARTICLE" if not image_asset else "IMAGE",
-                }
+            "commentary": commentary,
+            "visibility": "PUBLIC",
+            "distribution": {
+                "feedDistribution": "MAIN_FEED",
+                "targetEntities": [],
+                "thirdPartyDistributionChannels": [],
             },
-            "visibility": {"com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"},
+            "content": {"article": article},
+            "lifecycleState": "PUBLISHED",
+            "isReshareDisabledByAuthor": False,
         }
 
-        if image_asset:
-            share_body["specificContent"]["com.linkedin.ugc.ShareContent"]["media"] = [
-                {
-                    "status": "READY",
-                    "originalUrl": meta["blog_url"],
-                    "media": image_asset,
-                    "title": {"text": meta["title"]},
-                    "description": {"text": meta["description"][:200]},
-                }
-            ]
-        else:
-            share_body["specificContent"]["com.linkedin.ugc.ShareContent"]["media"] = [
-                {
-                    "status": "READY",
-                    "originalUrl": meta["blog_url"],
-                    "title": {"text": meta["title"]},
-                    "description": {"text": meta["description"][:200]},
-                }
-            ]
-
         resp = requests.post(
-            f"{self.API_BASE}/ugcPosts",
+            f"{self.REST_BASE}/posts",
             headers=self._headers(),
-            json=share_body,
+            json=body,
         )
-
         if resp.status_code in (200, 201):
-            post_id = resp.json().get("id", "unknown")
+            # The Posts API returns the new post URN in a response header.
+            post_id = resp.headers.get("x-restli-id") or resp.headers.get("x-linkedin-id") or "unknown"
             log.info(f"LinkedIn: Posted ({post_id})")
             return str(post_id)
-        else:
-            log.error(f"LinkedIn: Post failed ({resp.status_code}): {resp.text}")
-            return None
+        log.error(f"LinkedIn: Post failed ({resp.status_code}): {resp.text}")
+        return None
 
 
 # ---------------------------------------------------------------------------
