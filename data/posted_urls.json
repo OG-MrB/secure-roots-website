@@ -9,6 +9,16 @@
           "published_at": "2026-07-18T19:24:36.060367Z"
         }
       }
+    },
+    {
+      "blog_url": "https://secureroots.io/blog/2026/05/16/your-mfa-isnt-the-finish-line/",
+      "title": "Your MFA Isn't the Finish Line: How Stolen Sessions Walk Right Past It",
+      "platforms": {
+        "bluesky": {
+          "id": "at://did:plc:o45qfovqgz7erwrijc4insqe/app.bsky.feed.post/3mqz6rzbmmt2j",
+          "published_at": "2026-07-19T16:21:52.117959Z"
+        }
+      }
     }
   ]
 }
