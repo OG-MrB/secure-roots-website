@@ -19,6 +19,16 @@
           "published_at": "2026-07-19T16:21:52.117959Z"
         }
       }
+    },
+    {
+      "blog_url": "https://secureroots.io/blog/2026/05/13/your-ai-coding-assistant-is-production-infrastructure/",
+      "title": "Your AI Coding Assistant Is Production Infrastructure—Treat It Like It",
+      "platforms": {
+        "bluesky": {
+          "id": "at://did:plc:o45qfovqgz7erwrijc4insqe/app.bsky.feed.post/3mr3pug6zyu2c",
+          "published_at": "2026-07-20T16:32:45.849951Z"
+        }
+      }
     }
   ]
 }
