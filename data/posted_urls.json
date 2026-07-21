@@ -29,6 +29,16 @@
           "published_at": "2026-07-20T16:32:45.849951Z"
         }
       }
+    },
+    {
+      "blog_url": "https://secureroots.io/blog/2026/05/02/your-vendors-are-your-attack-surface-the-sap-npm-compromise/",
+      "title": "Your Vendors Are Your Attack Surface: The SAP npm Compromise and the New Supply Chain Reality",
+      "platforms": {
+        "bluesky": {
+          "id": "at://did:plc:o45qfovqgz7erwrijc4insqe/app.bsky.feed.post/3mr6adkpsgh23",
+          "published_at": "2026-07-21T16:32:53.306009Z"
+        }
+      }
     }
   ]
 }
