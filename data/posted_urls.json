@@ -39,6 +39,16 @@
           "published_at": "2026-07-21T16:32:53.306009Z"
         }
       }
+    },
+    {
+      "blog_url": "https://secureroots.io/blog/2026/03/12/the-cavalry-isnt-coming-your-wartime-cyber-checklist/",
+      "title": "The Cavalry Isn't Coming: Your Wartime Cybersecurity Checklist",
+      "platforms": {
+        "bluesky": {
+          "id": "at://did:plc:o45qfovqgz7erwrijc4insqe/app.bsky.feed.post/3mraqtwohk52o",
+          "published_at": "2026-07-22T16:33:42.063664Z"
+        }
+      }
     }
   ]
 }
