@@ -59,6 +59,16 @@
           "published_at": "2026-07-23T16:34:04.304072Z"
         }
       }
+    },
+    {
+      "blog_url": "https://secureroots.io/blog/2026/02/13/fake-it-workers-hiding-in-your-org/",
+      "title": "The Employee Who Doesn't Exist: How Fake IT Workers Are Infiltrating Organizations—and How to Stop Them",
+      "platforms": {
+        "bluesky": {
+          "id": "at://did:plc:o45qfovqgz7erwrijc4insqe/app.bsky.feed.post/3mrfru3izav24",
+          "published_at": "2026-07-24T16:34:59.559560Z"
+        }
+      }
     }
   ]
 }
