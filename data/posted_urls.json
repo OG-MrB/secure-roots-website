@@ -69,6 +69,16 @@
           "published_at": "2026-07-24T16:34:59.559560Z"
         }
       }
+    },
+    {
+      "blog_url": "https://secureroots.io/blog/2025/11/30/cyber-cartel/",
+      "title": "When Cybercrime Becomes Corporate: Inside the Ransomware Cartel of Qilin, LockBit & DragonForce",
+      "platforms": {
+        "bluesky": {
+          "id": "at://did:plc:o45qfovqgz7erwrijc4insqe/app.bsky.feed.post/3mribkx7gn523",
+          "published_at": "2026-07-25T16:21:32.340369Z"
+        }
+      }
     }
   ]
 }
