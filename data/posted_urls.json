@@ -79,6 +79,16 @@
           "published_at": "2026-07-25T16:21:32.340369Z"
         }
       }
+    },
+    {
+      "blog_url": "https://secureroots.io/blog/2025/10/15/criminals-have-jobs-too/",
+      "title": "(Cyber) Criminals Have Jobs Too",
+      "platforms": {
+        "bluesky": {
+          "id": "at://did:plc:o45qfovqgz7erwrijc4insqe/app.bsky.feed.post/3mrks5ifl772p",
+          "published_at": "2026-07-26T16:23:33.697995Z"
+        }
+      }
     }
   ]
 }
