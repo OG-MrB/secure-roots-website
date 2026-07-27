@@ -89,6 +89,16 @@
           "published_at": "2026-07-26T16:23:33.697995Z"
         }
       }
+    },
+    {
+      "blog_url": "https://secureroots.io/blog/2025/10/05/example-post/",
+      "title": "Sextortion: How to Stay Safe and What to Do If It Happens",
+      "platforms": {
+        "bluesky": {
+          "id": "at://did:plc:o45qfovqgz7erwrijc4insqe/app.bsky.feed.post/3mrndtmkwjl2p",
+          "published_at": "2026-07-27T16:45:29.448867Z"
+        }
+      }
     }
   ]
 }
