@@ -21,3 +21,10 @@ feed:
 
 # Time zone
 timezone: America/Los_Angeles
+
+# Cloudflare Web Analytics
+# Cookieless, privacy-first page analytics. Applied site-wide via _layouts/default.html,
+# so every page (landing pages, blog, home) is counted with no per-page setup.
+# Paste the site token from the Cloudflare Web Analytics dashboard between the quotes.
+# Leaving it empty disables the beacon entirely, so the site still builds and runs clean.
+cloudflare_analytics_token: ""
