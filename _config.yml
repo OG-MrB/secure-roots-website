@@ -27,4 +27,4 @@ timezone: America/Los_Angeles
 # so every page (landing pages, blog, home) is counted with no per-page setup.
 # Paste the site token from the Cloudflare Web Analytics dashboard between the quotes.
 # Leaving it empty disables the beacon entirely, so the site still builds and runs clean.
-cloudflare_analytics_token: ""
+cloudflare_analytics_token: "52a2e4de6c09414697c09a62114ee63f"
