@@ -3,7 +3,7 @@ layout: post
 title: "The CEO on the Call Wasn't Your CEO: How AI-Powered Fraud Is Fooling the C-Suite"
 date: 2026-03-03 10:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
-image: /img/deepfake_ceo_fraud.png
+image: /img/deepfake_ceo_fraud.jpg
 description: "Deepfake executive impersonation is now the #1 concern for CEOs worldwide. Learn how AI-generated voice and video fraud is draining companies of millions—and what your leadership team can do right now to stop it."
 publish_social: true
 ---

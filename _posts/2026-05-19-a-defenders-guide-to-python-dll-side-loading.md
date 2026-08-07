@@ -3,7 +3,7 @@ layout: post
 title: "When Trusted Software Loads the Attacker's Code: A Defender's Guide to Python DLL Side-Loading"
 date: 2026-05-19 09:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
-image: /img/a-defenders-guide-to-python-dll-side-loading.png
+image: /img/a-defenders-guide-to-python-dll-side-loading.jpg
 description: "Attackers increasingly run their code inside your trusted, signed applications using DLL side-loading and embedded Python. Here is how the technique works at a high level, and the detection and hardening steps a small team can apply this week."
 publish_social: true
 ---

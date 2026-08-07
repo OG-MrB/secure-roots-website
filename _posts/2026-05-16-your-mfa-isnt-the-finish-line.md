@@ -3,7 +3,7 @@ layout: post
 title: "Your MFA Isn't the Finish Line: How Stolen Sessions Walk Right Past It"
 date: 2026-05-16 09:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
-image: /img/your-mfa-isnt-the-finish-line.png
+image: /img/your-mfa-isnt-the-finish-line.jpg
 description: "Attackers have stopped guessing passwords and started stealing live sessions. Infostealers and adversary-in-the-middle kits hand criminals an already-authenticated account, MFA included. Here is what that changes, and what to do this week."
 publish_social: true
 ---

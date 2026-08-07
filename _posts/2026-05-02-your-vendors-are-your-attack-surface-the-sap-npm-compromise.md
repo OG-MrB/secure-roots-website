@@ -3,7 +3,7 @@ layout: post
 title: "Your Vendors Are Your Attack Surface: The SAP npm Compromise and the New Supply Chain Reality"
 date: 2026-05-02 16:39:40 -0700
 categories: [Cybercrime & Threat Awareness]
-image: /img/your-vendors-are-your-attack-surface-the-sap-npm-compromise.png
+image: /img/your-vendors-are-your-attack-surface-the-sap-npm-compromise.jpg
 description: "On April 29, attackers compromised four official SAP npm packages with 572,000 weekly downloads, stealing developer credentials and cloud secrets. Here's why every organization needs to treat third-party code and access as a primary attack surface—right now."
 publish_social: true
 ---

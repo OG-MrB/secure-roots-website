@@ -3,7 +3,7 @@ layout: post
 title: "The Cavalry Isn't Coming: Your Wartime Cybersecurity Checklist"
 date: 2026-03-12 10:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
-image: /img/wartime_cyber_checklist.png
+image: /img/wartime_cyber_checklist.jpg
 description: "With Iran-aligned cyber operations escalating and CISA operating at a fraction of its capacity, American businesses are largely on their own. Here's what your organization needs to do this week—not this quarter."
 publish_social: true
 ---

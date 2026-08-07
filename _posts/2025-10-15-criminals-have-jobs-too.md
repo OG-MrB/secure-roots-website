@@ -3,7 +3,7 @@ layout: post
 title:  "(Cyber) Criminals Have Jobs Too"
 date:   2025-10-15 10:00:00 -0700
 categories: [Cybercrime & Threat Awareness]
-image: /img/cyber_criminals_have_jobs_too.png
+image: /img/cyber_criminals_have_jobs_too.jpg
 description: "Cybercrime isn’t chaos — it’s commerce. Discover why attackers have professionalized their trade, why every organization is a target, and how Secure Roots helps companies build cultures of security strong enough to withstand industrialized threat actors."
 publish_social: true
 ---
