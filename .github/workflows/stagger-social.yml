@@ -2,12 +2,17 @@ name: Staggered Social Post (1/day)
 
 # Posts ONE blog post per run — the newest article that has
 # `publish_social: true` and isn't yet in data/posted_urls.json.
-# Runs daily; self-stops once the backlog is drained.
-
+#
+# PAUSED 2026-08-07: the schedule trigger is disabled. This workflow
+# previously ran unattended and posted 9 articles to Bluesky with no
+# per-post human approval, which conflicts with Eric's standing rule
+# that nothing posts without his explicit OK. Manual dispatch only
+# until a real approval gate (e.g. preview-then-confirm) is built.
+# Re-enable the schedule block below only with Eric's explicit go-ahead.
 on:
-  schedule:
-    - cron: '0 16 * * *'   # 16:00 UTC ≈ 09:00 America/Los_Angeles
-  workflow_dispatch:        # manual trigger (used to fire the first post on demand)
+  # schedule:
+  #   - cron: '0 16 * * *'   # 16:00 UTC ≈ 09:00 America/Los_Angeles
+  workflow_dispatch:        # manual trigger only, pending an approval-gate redesign
 
 jobs:
   stagger-post:
