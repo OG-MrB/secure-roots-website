@@ -18,8 +18,8 @@
                  script-src 'self' 'unsafe-inline' https://assets.mailerlite.com https://groot.mailerlite.com https://assets.mlcdn.com https://static.mailerlite.com https://static.cloudflareinsights.com;
                  style-src 'self' 'unsafe-inline' https://assets.mailerlite.com https://assets.mlcdn.com https://fonts.mailerlite.com;
                  img-src 'self' data: https://assets.mailerlite.com https://assets.mlcdn.com;
-                 connect-src 'self' https://assets.mailerlite.com https://api.mailerlite.com https://groot.mailerlite.com https://cloudflareinsights.com https://static.cloudflareinsights.com;
-                 font-src 'self' https://assets.mlcdn.com https://fonts.mailerlite.com https://fonts.gstatic.com;
+                 connect-src 'self' https://assets.mailerlite.com https://groot.mailerlite.com https://cloudflareinsights.com https://static.cloudflareinsights.com;
+                 font-src 'self' https://assets.mlcdn.com https://fonts.mailerlite.com;
                  form-action 'self' https://formsubmit.co https://assets.mailerlite.com https://groot.mailerlite.com;
                  upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -30,17 +30,37 @@
        control available is in-document. The page is hidden by default and revealed
        only when it is the top-level window. An attacker who strips scripting with
        <iframe sandbox> gets the no-JS notice rather than a framable page.
+       The usual advice is a <noscript> block that unhides the whole page, which
+       hands the sandbox case straight back to the attacker. Instead the noscript
+       path reveals ONLY the contact notice below: a no-JS visitor still gets a
+       usable way to reach us, and a sandboxed framer gets that same notice
+       rather than a clickable copy of the site.
+
        This is a stopgap: put a CDN in front and send
        `X-Frame-Options: DENY` + `frame-ancestors 'none'` for the real fix. -->
   <style id="sr-frameguard">html{visibility:hidden}</style>
   <noscript><style>html{visibility:visible}body>*{visibility:hidden}#sr-nojs{display:block!important;visibility:visible}</style></noscript>
   <script>
     (function () {
-      if (window.self === window.top) {
+      var framed;
+      try { framed = (window.self !== window.top); } catch (e) { framed = true; }
+
+      // Two independent reveal paths: a missing style element must never leave
+      // a real visitor staring at a blank page.
+      function reveal() {
         var g = document.getElementById('sr-frameguard');
-        if (g && g.parentNode) { g.parentNode.removeChild(g); }
-      } else {
-        try { window.top.location = window.self.location; } catch (e) { /* sandboxed: stay hidden */ }
+        if (g && g.parentNode) { g.parentNode.removeChild(g); return; }
+        document.documentElement.style.setProperty('visibility', 'visible', 'important');
+      }
+
+      if (!framed) { reveal(); return; }
+
+      try {
+        // replace() rather than href= so the attacker's page is not left in history.
+        window.top.location.replace(window.self.location.href);
+      } catch (e) {
+        // Sandboxed, or top-navigation blocked for lack of user activation.
+        // Deliberately stay hidden: the framer gets the notice, not the site.
       }
     })();
   </script>
