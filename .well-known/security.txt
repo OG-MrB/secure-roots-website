@@ -1,0 +1,13 @@
+---
+layout: null
+permalink: /.well-known/security.txt
+---
+# Security contact information for secureroots.io — RFC 9116
+# If you have found a security issue in this site or in anything Secure Roots
+# operates, tell us. We will acknowledge within two business days.
+
+Contact: mailto:info@secureroots.io
+Contact: https://secureroots.io/contact/
+Expires: 2027-08-01T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://secureroots.io/.well-known/security.txt

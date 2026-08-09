@@ -5,13 +5,45 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://assets.mailerlite.com https://groot.mailerlite.com https://assets.mlcdn.com https://static.mailerlite.com https://static.cloudflareinsights.com;
+  <!-- Content Security Policy.
+       NOTE ON DELIVERY: this is a <meta> policy because GitHub Pages cannot send
+       response headers. A meta-delivered CSP silently ignores frame-ancestors,
+       report-uri and sandbox, so this tag CANNOT stop clickjacking no matter what
+       is written in it. Framing is handled by the frame-breaker below instead.
+       When a CDN is put in front of Pages, move this policy to a real
+       Content-Security-Policy header and add frame-ancestors 'none'. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+                 base-uri 'self';
+                 object-src 'none';
+                 script-src 'self' 'unsafe-inline' https://assets.mailerlite.com https://groot.mailerlite.com https://assets.mlcdn.com https://static.mailerlite.com https://static.cloudflareinsights.com;
                  style-src 'self' 'unsafe-inline' https://assets.mailerlite.com https://assets.mlcdn.com https://fonts.mailerlite.com;
                  img-src 'self' data: https://assets.mailerlite.com https://assets.mlcdn.com;
-                 connect-src 'self' https://assets.mailerlite.com https://api.mailerlite.com https://groot.mailerlite.com https://cloudflareinsights.com;
+                 connect-src 'self' https://assets.mailerlite.com https://api.mailerlite.com https://groot.mailerlite.com https://cloudflareinsights.com https://static.cloudflareinsights.com;
                  font-src 'self' https://assets.mlcdn.com https://fonts.mailerlite.com https://fonts.gstatic.com;
-                 form-action https://formsubmit.co https://assets.mailerlite.com https://*.mailerlite.com">
+                 form-action 'self' https://formsubmit.co https://assets.mailerlite.com https://groot.mailerlite.com;
+                 upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Frame-breaker (clickjacking defence).
+       X-Frame-Options is header-only and has no effect in a <meta> tag, and CSP
+       frame-ancestors is ignored in meta policies, so on GitHub Pages the only
+       control available is in-document. The page is hidden by default and revealed
+       only when it is the top-level window. An attacker who strips scripting with
+       <iframe sandbox> gets the no-JS notice rather than a framable page.
+       This is a stopgap: put a CDN in front and send
+       `X-Frame-Options: DENY` + `frame-ancestors 'none'` for the real fix. -->
+  <style id="sr-frameguard">html{visibility:hidden}</style>
+  <noscript><style>html{visibility:visible}body>*{visibility:hidden}#sr-nojs{display:block!important;visibility:visible}</style></noscript>
+  <script>
+    (function () {
+      if (window.self === window.top) {
+        var g = document.getElementById('sr-frameguard');
+        if (g && g.parentNode) { g.parentNode.removeChild(g); }
+      } else {
+        try { window.top.location = window.self.location; } catch (e) { /* sandboxed: stay hidden */ }
+      }
+    })();
+  </script>
   <title>{{ page.title }} | {{ site.title }}</title>
   <link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseurl }}/img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseurl }}/img/favicon-16.png">
@@ -37,6 +69,14 @@
 </head>
 
 <body>
+  <!-- Shown only when scripting is unavailable, so a no-JS visitor gets an
+       explanation instead of a blank page (see frame-breaker in <head>). -->
+  <div id="sr-nojs" hidden style="max-width:42rem;margin:4rem auto;padding:1.5rem;font-family:system-ui,sans-serif;line-height:1.6">
+    <h1 style="font-size:1.25rem;margin:0 0 .5rem">JavaScript is required</h1>
+    <p style="margin:0 0 .5rem">Secure Roots blocks itself from being displayed inside another site's frame, and that protection needs JavaScript enabled.</p>
+    <p style="margin:0">Enable JavaScript, or reach us directly at <a href="mailto:info@secureroots.io">info@secureroots.io</a> or +1 (310) 421-8132.</p>
+  </div>
+
   <!-- Header / Navigation -->
   <header>
     <nav class="navbar">

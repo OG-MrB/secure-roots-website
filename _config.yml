@@ -22,6 +22,40 @@ feed:
 # Time zone
 timezone: America/Los_Angeles
 
+# Publish surface.
+# Jekyll publishes every root-level file it is not told to skip, so an internal
+# runbook dropped in the repo root becomes a live page. Three of them did
+# (MAILERLITE_SETUP, SOCIAL_MEDIA_SETUP, WELCOME_SEQUENCES) and were readable at
+# https://secureroots.io/<NAME>/ until 2026-08-08. Anything that is not meant to
+# be a public page belongs on this list. Operational notes belong outside the
+# repo entirely — see ~/Desktop/SecureRoots/_private-runbooks/.
+# Jekyll skips dot-directories by default, so /.well-known/ has to be opted in
+# explicitly or security.txt never reaches the built site.
+include:
+  - .well-known
+
+exclude:
+  - README.md
+  - CLAUDE.md
+  - ISA.md
+  - SESSION_HANDOFF.md
+  - Gemfile
+  - Gemfile.lock
+  - Plans/
+  - scripts/
+  - vendor/
+  - node_modules/
+  - .github/
+  - .bundle/
+  - .venv/
+  - .env
+  - .env.example
+  - "*.old"
+  - "*.code-workspace"
+  - "*_SETUP.md"
+  - "*_SEQUENCES.md"
+  - "*_HANDOFF.md"
+
 # Cloudflare Web Analytics
 # Cookieless, privacy-first page analytics. Applied site-wide via _layouts/default.html,
 # so every page (landing pages, blog, home) is counted with no per-page setup.

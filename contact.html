@@ -33,7 +33,11 @@ title: Contact Us
 
             <div class="contact-form">
                 <h2>Send a Message</h2>
-                <form action="https://formsubmit.co/eric@secureroots.io" method="POST">
+                <!-- Role address only. Never put a personal mailbox in a public form
+                     action: it is scraped straight out of the page source for
+                     spear-phishing. Upgrade path is FormSubmit's hashed endpoint
+                     (https://formsubmit.co/<hash>) so no address appears here at all. -->
+                <form action="https://formsubmit.co/info@secureroots.io" method="POST">
                
                     <input type="hidden" name="_subject" value="New contact from SecureRoots website">
                     <input type="hidden" name="_template" value="table">
